@@ -1,0 +1,22 @@
+{
+  "name": "SelfEvoPI, a self-evolving coding-agent harness",
+  "short_name": "SelfEvoPI",
+  "description": "A lightweight, engine-agnostic coding-agent harness with a multi-provider router, a regression gate, persistent memory and a Windows sandbox.",
+  "lang": "en",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "categories": ["developer", "productivity"],
+  "icons": [
+    {
+      "src": "assets/selfevopi.ico",
+      "sizes": "any",
+      "type": "image/x-icon",
+      "purpose": "any"
+    }
+  ]
+}

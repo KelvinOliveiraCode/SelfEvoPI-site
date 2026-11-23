@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 340" width="900" height="340" role="img" aria-labelledby="flowTitle flowDesc" class="dg">
+  <title id="flowTitle" data-en="Normalized event flow" data-pt="Fluxo de eventos normalizado">Normalized event flow</title>
+  <desc id="flowDesc" data-en="The engine feeds the RPC client, which feeds the CLI. Four normalized events leave the CLI: text, tool, settled and error. The filled node marks the origin of the stream." data-pt="O motor alimenta o cliente RPC, que alimenta a CLI. Quatro eventos normalizados saem da CLI: text, tool, settled e error. O nó preenchido marca a origem do fluxo.">The engine feeds the RPC client, which feeds the CLI. Four normalized events leave the CLI: text, tool, settled and error. The filled node marks the origin of the stream.</desc>
+  <style>
+    .dg{--bg:#000;--bg-3:#1a1a1a;--fg:#fff;--muted:#787878;--line:rgba(255,255,255,.18);--font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+    .dg .bg{fill:var(--bg)}
+    .dg .ln{fill:none;stroke:var(--fg);stroke-opacity:.35;stroke-width:1}
+    .dg .node{fill:var(--fg)}
+    .dg .hollow{fill:var(--bg);stroke:var(--fg);stroke-width:1.5}
+    .dg text{fill:var(--fg);font-family:var(--font);font-size:17px;font-weight:500}
+    .dg .sub{fill:var(--muted);font-size:14px;font-weight:400}
+  </style>
+  <rect class="bg" width="900" height="320"/>
+  <g class="ln">
+    <line x1="152" y1="92" x2="438" y2="92"/>
+    <line x1="462" y1="92" x2="778" y2="92"/>
+    <line x1="790" y1="104" x2="790" y2="178"/>
+    <line x1="110" y1="178" x2="790" y2="178"/>
+    <line x1="110" y1="178" x2="110" y2="232"/>
+    <line x1="340" y1="178" x2="340" y2="232"/>
+    <line x1="570" y1="178" x2="570" y2="232"/>
+    <line x1="790" y1="178" x2="790" y2="232"/>
+  </g>
+  <g class="node">
+    <circle cx="140" cy="92" r="11"/>
+    <circle cx="110" cy="244" r="11" class="hollow"/>
+    <circle cx="340" cy="244" r="11" class="hollow"/>
+    <circle cx="570" cy="244" r="11" class="hollow"/>
+    <circle cx="790" cy="244" r="11" class="hollow"/>
+  </g>
+  <circle cx="450" cy="92" r="11" class="hollow"/>
+  <circle cx="790" cy="92" r="11" class="hollow"/>
+  <g class="sub">
+    <text x="110" y="168" data-en="normalized events" data-pt="eventos normalizados">normalized events</text>
+    <text x="110" y="278" text-anchor="middle" data-en="streamed answer" data-pt="resposta em streaming">streamed answer</text>
+    <text x="340" y="278" text-anchor="middle" data-en="target and result" data-pt="alvo e resultado">target and result</text>
+    <text x="570" y="278" text-anchor="middle" data-en="turn closed" data-pt="turno encerrado">turn closed</text>
+    <text x="790" y="278" text-anchor="middle" data-en="provider text" data-pt="texto do provedor">provider text</text>
+  </g>
+  <g>
+    <text x="140" y="64" text-anchor="middle" data-en="engine" data-pt="motor">engine</text>
+    <text x="450" y="64" text-anchor="middle" data-en="RPC client" data-pt="cliente RPC">RPC client</text>
+    <text x="790" y="64" text-anchor="middle" data-en="CLI" data-pt="CLI">CLI</text>
+    <text x="110" y="302" text-anchor="middle" data-en="text" data-pt="text">text</text>
+    <text x="340" y="302" text-anchor="middle" data-en="tool" data-pt="tool">tool</text>
+    <text x="570" y="302" text-anchor="middle" data-en="settled" data-pt="settled">settled</text>
+    <text x="790" y="302" text-anchor="middle" data-en="error" data-pt="error">error</text>
+  </g>
+</svg>

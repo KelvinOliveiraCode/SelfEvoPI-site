@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-labelledby="t d">
+  <title id="t">SelfEvoPI social image placeholder</title>
+  <desc id="d">Black field with the SelfEvoPI name and the word placeholder. An honest stand-in until a final image is supplied.</desc>
+  <rect width="1200" height="630" fill="#000000"/>
+  <line x1="80" y1="120" x2="1120" y2="120" stroke="#ffffff" stroke-opacity="0.18" stroke-width="2"/>
+  <text x="80" y="340" fill="#ffffff" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif" font-size="104" font-weight="500" letter-spacing="-4">SelfEvoPI</text>
+  <text x="80" y="404" fill="#787878" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif" font-size="32">Image placeholder</text>
+  <line x1="80" y1="510" x2="1120" y2="510" stroke="#ffffff" stroke-opacity="0.18" stroke-width="2"/>
+</svg>

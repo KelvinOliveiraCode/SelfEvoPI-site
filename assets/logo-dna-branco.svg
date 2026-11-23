@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="titulo descricao">
+  <title id="titulo">SelfEvoPI</title>
+  <desc id="descricao">Anel aberto de evolucao envolvendo uma helice dupla que forma um pi abstrato. O no no fim do anel marca a variacao promovida.</desc>
+
+  <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" color="#ffffff">
+
+    <path d="M204.4 51.6 A108 108 0 1 1 146.7 21.6" stroke-width="12"/>
+
+    <path d="M104 84 C104 108 152 108 152 132 C152 156 104 156 104 180" stroke-width="10"/>
+    <path d="M152 84 C152 108 104 108 104 132 C104 156 152 156 152 180 Q152 198 176 198" stroke-width="10"/>
+
+    <path d="M104 84 H152" stroke-width="10"/>
+    <path d="M104 132 H152" stroke-width="8"/>
+    <path d="M104 180 H152" stroke-width="8"/>
+
+  </g>
+
+  <circle cx="204.4" cy="51.6" r="11" fill="currentColor" color="#ffffff"/>
+</svg>

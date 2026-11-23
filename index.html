@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="en" data-theme="dark"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-en="SelfEvoPI, a self-evolving coding-agent harness" data-pt="SelfEvoPI, um harness de agente de código auto-evolutivo">SelfEvoPI, a self-evolving coding-agent harness</title>
+<meta name="description" data-en="SelfEvoPI is a lightweight, engine-agnostic coding-agent harness. A multi-provider router, a regression gate, persistent memory, a Windows sandbox, and a core that builds the capability it is missing." data-pt="SelfEvoPI é um harness de agente de código leve e agnóstico. Roteador multi-provider, gate de regressão, memória persistente, sandbox Windows e um núcleo que constrói a capacidade que falta.">
+<meta name="theme-color" content="#000000">
+<meta name="color-scheme" content="dark light">
+<meta property="og:title" data-en="SelfEvoPI, a self-evolving coding-agent harness" data-pt="SelfEvoPI, um harness de agente de código auto-evolutivo" content="SelfEvoPI, a self-evolving coding-agent harness">
+<meta property="og:description" data-en="One CLI. A multi-provider router, a regression gate, persistent memory, and an evolutionary core." data-pt="Uma CLI. Roteador multi-provider, gate de regressão, memória persistente e núcleo evolutivo." content="One CLI. A multi-provider router, a regression gate, persistent memory, and an evolutionary core.">
+<meta property="og:image" content="assets/og.svg">
+<meta property="og:image:type" content="image/svg+xml">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" data-en="SelfEvoPI wordmark on a black field" data-pt="Wordmark SelfEvoPI em fundo preto" content="SelfEvoPI wordmark on a black field">
+<link rel="icon" href="assets/selfevopi.ico" sizes="any">
+<link rel="manifest" href="site.webmanifest">
+<link rel="stylesheet" href="styles.css">
+<script>
+(function(){
+  var lang='en';
+  try{ var s=localStorage.getItem('selfevopi-lang'); if(s==='pt'||s==='en'){lang=s;} }catch(e){}
+  document.documentElement.lang=lang;
+  window.__selfevopiLang=lang;
+  var theme='';
+  try{ theme=localStorage.getItem('selfevopi-theme')||''; }catch(e){}
+  if(theme!=='light'&&theme!=='dark'){
+    theme=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches)?'light':'dark';
+  }
+  document.documentElement.setAttribute('data-theme',theme);
+  window.__selfevopiTheme=theme;
+})();
+</script>
+</head>
+<body class="is-loading">
+<div class="vignette" aria-hidden="true"></div>
+
+<div class="loader" id="loader" aria-hidden="true">
+  <img src="assets/logo-dna-branco.svg" alt="" width="72" height="72">
+  <span class="loader-line"><span class="loader-fill" id="loaderFill"></span></span>
+</div>
+
+<canvas class="dust-canvas" id="dustCanvas" aria-hidden="true"></canvas>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+<a class="skip-link" href="#main" data-en="Skip to content" data-pt="Pular para o conteúdo">Skip to content</a>
+
+<div class="intro-stage" id="introStage">
+  <section class="reception" id="reception" aria-labelledby="receptionTitle">
+    <div class="wrap reception-grid">
+      <div class="reception-copy">
+        <h1 id="receptionTitle" data-en="SelfEvoPI is a coding-agent harness that measures its own quality and builds the capability it is missing." data-pt="SelfEvoPI é um harness de agente de código que mede a própria qualidade e constrói a capacidade que falta.">SelfEvoPI is a coding-agent harness that measures its own quality and builds the capability it is missing.</h1>
+        <p class="reception-meta"><a href="https://github.com/KelvinOliveiraCode/SelfEvoPI" data-en="Repository" data-pt="Repositório">Repository</a><span aria-hidden="true"> / </span><a href="https://huggingface.co/spaces/joelniklaus/harness-leaderboard" data-en="Harness Leaderboard" data-pt="Harness Leaderboard">Harness Leaderboard</a></p>
+      </div>
+      <div class="reception-mark" aria-hidden="true">
+        <img src="assets/logo-dna-branco.svg" alt="" width="320" height="320">
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="chrome" id="chrome">
+  <header class="nav">
+    <a class="brand" href="#reception" aria-label="SelfEvoPI">
+      <img src="assets/wordmark.svg" alt="SelfEvoPI" width="450" height="96">
+    </a>
+    <button type="button" class="menu-button" id="menuButton" aria-expanded="false" aria-controls="navLinks" data-en-aria="Open navigation" data-pt-aria="Abrir navegação" aria-label="Open navigation">
+      <span data-en="Menu" data-pt="Menu">Menu</span>
+    </button>
+    <nav id="navLinks" class="nav-links" aria-label="Sections" data-en-aria="Seções" data-pt-aria="Seções">
+      <a href="#mechanism" data-en="Mechanism" data-pt="Mecanismo">Mechanism</a>
+      <a href="#architecture" data-en="Architecture" data-pt="Arquitetura">Architecture</a>
+      <a href="#comparison" data-en="Comparison" data-pt="Comparação">Comparison</a>
+      <a href="#evidence" data-en="Evidence" data-pt="Evidência">Evidence</a>
+      <a href="#limits" data-en="Limits" data-pt="Limites">Limits</a>
+      <a href="#commands" data-en="Commands" data-pt="Comandos">Commands</a>
+    </nav>
+    <button type="button" class="lang-button nav-download" id="navDownloadButton" data-download-open data-en-aria="Download the CLI" data-pt-aria="Baixar a CLI" aria-label="Download the CLI">
+      <span class="nav-download-label" data-en="Download" data-pt="Baixar">Download</span>
+      <span class="nav-download-icon" aria-hidden="true">↓</span>
+    </button>
+    <button type="button" class="lang-button" id="langButton" data-en-aria="Switch to Portuguese" data-pt-aria="Mudar para inglês" aria-label="Switch to Portuguese">
+      <span data-en="PT" data-pt="EN">PT</span>
+    </button>
+    <button type="button" class="lang-button theme-button" id="themeButton" data-en-aria="Switch to light theme" data-pt-aria="Mudar para o tema claro" aria-label="Switch to light theme" aria-pressed="false">
+      <svg class="theme-icon theme-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+      <svg class="theme-icon theme-icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+    </button>
+  </header>
+</div>
+
+<main id="main">
+  <section class="section reveal opening" id="opening" aria-labelledby="openingTitle">
+    <div class="wrap opening-grid">
+      <div class="opening-copy">
+        <h2 id="openingTitle" data-en="A harness that measures itself" data-pt="Um harness que se mede">A harness that measures itself</h2>
+        <p class="lead" data-en="One CLI. A multi-provider router, a regression gate, persistent memory, a Windows sandbox, and a core that writes the artifact a task is missing." data-pt="Uma CLI. Roteador multi-provider, gate de regressão, memória persistente, sandbox Windows e um núcleo que escreve o artefato que falta à tarefa.">One CLI. A multi-provider router, a regression gate, persistent memory, a Windows sandbox, and a core that writes the artifact a task is missing.</p>
+        <button type="button" class="primary" id="downloadButton" data-download-open data-en="Download the CLI" data-pt="Baixar a CLI">Download the CLI</button>
+      </div>
+    </div>
+    <div class="wrap track-wrap">
+      <h3 class="track-title" data-en="Four events in one turn" data-pt="Quatro eventos em um turno">Four events in one turn</h3>
+      <p class="track-intro" data-en="Select an event to move the active state marker." data-pt="Selecione um evento para mover o marcador de estado ativo.">Select an event to move the active state marker.</p>
+      <div class="track" id="turnTrack" role="group" aria-label="Events in one turn" data-en-aria="Eventos em um turno" data-pt-aria="Eventos em um turno">
+        <button type="button" class="track-step is-active" data-step="0" aria-pressed="true"><span class="node" aria-hidden="true"></span><span class="step-label" data-en="Reasoning" data-pt="Raciocínio">Reasoning</span><span class="step-text" data-en="The core checks the plan against the task contract before any write." data-pt="O núcleo verifica o plano contra o contrato da tarefa antes de qualquer escrita.">The core checks the plan against the task contract before any write.</span></button>
+        <button type="button" class="track-step" data-step="1" aria-pressed="false"><span class="node" aria-hidden="true"></span><span class="step-label" data-en="Tool call" data-pt="Chamada de ferramenta">Tool call</span><span class="step-text" data-en="The CLI prints the target of each tool on one line." data-pt="A CLI mostra o alvo de cada ferramenta em uma linha.">The CLI prints the target of each tool on one line.</span></button>
+        <button type="button" class="track-step" data-step="2" aria-pressed="false"><span class="node" aria-hidden="true"></span><span class="step-label" data-en="Result" data-pt="Resultado">Result</span><span class="step-text" data-en="Files are written. Tool calling is confirmed for both real tasks." data-pt="Os arquivos são escritos. O tool calling é confirmado nas duas tarefas reais.">Files are written. Tool calling is confirmed for both real tasks.</span></button>
+        <button type="button" class="track-step" data-step="3" aria-pressed="false"><span class="node" aria-hidden="true"></span><span class="step-label" data-en="Answer" data-pt="Resposta">Answer</span><span class="step-text" data-en="The final response returns to the same conversation." data-pt="A resposta final volta para a mesma conversa.">The final response returns to the same conversation.</span></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="thesis" aria-labelledby="thesisTitle">
+    <div class="wrap">
+      <h2 id="thesisTitle" data-en="Why the harness matters" data-pt="Por que o harness importa">Why the harness matters</h2>
+      <div class="thesis-grid">
+        <div class="measure-column">
+          <p class="measure" data-en="+499 tokens over a 1,500 token ceiling" data-pt="+499 tokens sobre um teto de 1.500 tokens">+499 tokens over a 1,500 token ceiling</p>
+          <p class="measure" data-en="~82 ms cold start, 7 runs" data-pt="~82 ms de partida a frio, 7 execuções">~82 ms cold start, 7 runs</p>
+        </div>
+        <div class="thesis-copy">
+          <p data-en="Run the same model in two harnesses. Does the result change?" data-pt="Rode o mesmo modelo em dois harnesses. O resultado muda?">Run the same model in two harnesses. Does the result change?</p>
+          <div class="thesis-map">
+            <p class="thesis-hub" data-en="harness decides" data-pt="o harness decide">harness decides</p>
+            <ul class="thesis-branches">
+              <li><span class="dot filled" aria-hidden="true"></span><strong data-en="Context" data-pt="Contexto">Context</strong><span data-en="what enters the prompt" data-pt="o que entra no prompt">what enters the prompt</span></li>
+              <li><span class="dot filled" aria-hidden="true"></span><strong data-en="Turn length" data-pt="Duração do turno">Turn length</strong><span data-en="how long the agent works" data-pt="quanto tempo o agente trabalha">how long the agent works</span></li>
+              <li><span class="dot filled" aria-hidden="true"></span><strong data-en="Errors" data-pt="Erros">Errors</strong><span data-en="what happens when the model is wrong" data-pt="o que acontece quando o modelo erra">what happens when the model is wrong</span></li>
+            </ul>
+          </div>
+<div class="diagram-wrap"><img src="assets/diagram-context-budget.svg" alt="Context budget: 499 tokens SelfEvoPI overhead + 1001 free" width="900" height="220" loading="lazy"></div>
+                <p><a href="https://huggingface.co/spaces/joelniklaus/harness-leaderboard" data-en="Open the Harness Leaderboard" data-pt="Abrir o Harness Leaderboard">Open the Harness Leaderboard</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="mechanism" aria-labelledby="mechanismTitle">
+    <div class="wrap">
+      <h2 id="mechanismTitle" data-en="How it adapts" data-pt="Como ele se adapta">How it adapts</h2>
+      <p class="section-intro" data-en="The core runs a continuous loop. Each stage is independently testable and injectable." data-pt="O núcleo executa um ciclo contínuo. Cada etapa é testável e injetável de forma independente.">The core runs a continuous loop. Each stage is independently testable and injectable.</p>
+      <div class="cycle-wrap">
+        <svg class="cycle-svg" viewBox="0 0 900 520" role="img" aria-labelledby="cycleTitle cycleDesc">
+          <title id="cycleTitle" data-en="The adaptive cycle" data-pt="O ciclo adaptativo">The adaptive cycle</title>
+          <desc id="cycleDesc" data-en="Six stages around a central loop: detect, specify, generate, verify, gate, and promote or revert. The filled node marks promotion." data-pt="Seis etapas ao redor de um loop central: detectar, especificar, gerar, verificar, gate e promover ou reverter. O nó preenchido marca a promoção.">Six stages around a central loop: detect, specify, generate, verify, gate, and promote or revert. The filled node marks promotion.</desc>
+          <g class="evo-lines"><line x1="450" y1="260" x2="450" y2="86"></line><line x1="450" y1="260" x2="607" y2="167"></line><line x1="450" y1="260" x2="607" y2="353"></line><line x1="450" y1="260" x2="450" y2="434"></line><line x1="450" y1="260" x2="293" y2="353"></line><line x1="450" y1="260" x2="293" y2="167"></line></g>
+          <g class="cycle-nodes"><circle cx="450" cy="260" r="7" class="hollow"></circle><circle cx="450" cy="86" r="9" class="hollow"></circle><circle cx="607" cy="167" r="9" class="hollow"></circle><circle cx="607" cy="353" r="9" class="hollow"></circle><circle cx="450" cy="434" r="9" class="hollow"></circle><circle cx="293" cy="353" r="9" class="hollow"></circle><circle cx="293" cy="167" r="9" class="filled"></circle></g>
+          <g class="cycle-labels"><text x="450" y="58" text-anchor="middle" data-en="detect" data-pt="detectar">detect</text><text x="632" y="164" text-anchor="start" data-en="specify" data-pt="especificar">specify</text><text x="632" y="358" text-anchor="start" data-en="generate" data-pt="gerar">generate</text><text x="450" y="466" text-anchor="middle" data-en="verify" data-pt="verificar">verify</text><text x="268" y="358" text-anchor="end" data-en="gate" data-pt="gate">gate</text><text x="268" y="164" text-anchor="end" data-en="promote or revert" data-pt="promover ou reverter">promote or revert</text></g>
+        </svg>
+        <ol class="cycle-list">
+          <li><span class="dot hollow" aria-hidden="true"></span><span class="stage-name" data-en="detect" data-pt="detectar">detect</span><span data-en="Points to a repeated failure, a missing capability, or a fragile flow." data-pt="Aponta falha repetida, capacidade ausente ou fluxo frágil.">Points to a repeated failure, a missing capability, or a fragile flow.</span></li>
+          <li><span class="dot hollow" aria-hidden="true"></span><span class="stage-name" data-en="specify" data-pt="especificar">specify</span><span data-en="Writes a short contract with inputs, outputs, bans, and test cases." data-pt="Escreve contrato curto com entradas, saídas, proibições e casos de teste.">Writes a short contract with inputs, outputs, bans, and test cases.</span></li>
+          <li><span class="dot hollow" aria-hidden="true"></span><span class="stage-name" data-en="generate" data-pt="gerar">generate</span><span data-en="Produces the lightest artifact and runs node --check before writing." data-pt="Produz o artefato mais leve e roda node --check antes de gravar.">Produces the lightest artifact and runs node --check before writing.</span></li>
+          <li><span class="dot hollow" aria-hidden="true"></span><span class="stage-name" data-en="verify" data-pt="verificar">verify</span><span data-en="Probes the real interface for that artifact kind." data-pt="Sonda a interface real daquele tipo de artefato.">Probes the real interface for that artifact kind.</span></li>
+          <li><span class="dot hollow" aria-hidden="true"></span><span class="stage-name" data-en="gate" data-pt="gate">gate</span><span data-en="Compares with the baseline and requires zero regressions." data-pt="Compara com a baseline e exige zero regressões.">Compares with the baseline and requires zero regressions.</span></li>
+          <li><span class="dot filled" aria-hidden="true"></span><span class="stage-name" data-en="promote or revert" data-pt="promover ou reverter">promote or revert</span><span data-en="Commits atomically with memory, or rolls back and revalidates." data-pt="Faz commit atômico com memória, ou reverte e revalida.">Commits atomically with memory, or rolls back and revalidates.</span></li>
+        </ol>
+      </div>
+      <div class="diagram-wrap"><img src="assets/diagram-promotion.svg" alt="Promotion decision: verify feeds gate; green gate promotes, red gate reverts to generate" width="900" height="340" loading="lazy"></div>
+      <h3 class="subhead" data-en="Artifact hierarchy, lightest first" data-pt="Hierarquia de artefatos, do mais leve ao mais pesado">Artifact hierarchy, lightest first</h3>
+      <div class="hierarchy-diagram">
+        <div class="tier"><span class="tier-label" data-en="MCP config" data-pt="config de MCP">MCP config</span></div>
+        <div class="tier"><span class="tier-label" data-en="skill" data-pt="skill">skill</span></div>
+        <div class="tier"><span class="tier-label" data-en="CLI" data-pt="CLI">CLI</span></div>
+        <div class="tier"><span class="tier-label" data-en="extension" data-pt="extensão">extension</span></div>
+        <div class="tier"><span class="tier-label" data-en="MCP server" data-pt="servidor MCP">MCP server</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="architecture" aria-labelledby="architectureTitle">
+    <div class="wrap">
+      <h2 id="architectureTitle" data-en="Architecture" data-pt="Arquitetura">Architecture</h2>
+      <p class="section-intro" data-en="A thin layer around the engine. No fork, no bundled dependencies, no required container." data-pt="Uma camada fina ao redor do motor. Sem fork, sem dependências npm, sem contêiner obrigatório.">A thin layer around the engine. No fork, no bundled dependencies, no required container.</p>
+      <div class="architecture-wrap">
+        <svg class="architecture-svg" viewBox="0 0 900 560" role="img" aria-labelledby="archTitle archDesc">
+          <title id="archTitle" data-en="Architecture map" data-pt="Mapa da arquitetura">Architecture map</title>
+          <desc id="archDesc" data-en="A central SelfEvoPI node connects to eight layers: CLI, RPC client, router, evals, memory, sandbox, governance, and graph." data-pt="Um nó central SelfEvoPI conecta oito camadas: CLI, cliente RPC, roteador, evals, memória, sandbox, governança e grafo.">A central SelfEvoPI node connects to eight layers: CLI, RPC client, router, evals, memory, sandbox, governance, and graph.</desc>
+          <g class="evo-lines"><line x1="450" y1="280" x2="450" y2="96"></line><line x1="450" y1="280" x2="578" y2="152"></line><line x1="450" y1="280" x2="634" y2="280"></line><line x1="450" y1="280" x2="578" y2="408"></line><line x1="450" y1="280" x2="450" y2="464"></line><line x1="450" y1="280" x2="322" y2="408"></line><line x1="450" y1="280" x2="266" y2="280"></line><line x1="450" y1="280" x2="322" y2="152"></line></g>
+          <g class="arch-nodes"><circle cx="450" cy="280" r="14" class="core"></circle><circle cx="450" cy="96" r="9" class="hollow"></circle><circle cx="578" cy="152" r="9" class="hollow"></circle><circle cx="634" cy="280" r="9" class="hollow"></circle><circle cx="578" cy="408" r="9" class="hollow"></circle><circle cx="450" cy="464" r="9" class="hollow"></circle><circle cx="322" cy="408" r="9" class="hollow"></circle><circle cx="266" cy="280" r="9" class="hollow"></circle><circle cx="322" cy="152" r="9" class="hollow"></circle></g>
+          <g class="arch-labels"><text x="450" y="74" text-anchor="middle" data-en="CLI" data-pt="CLI">CLI</text><text x="598" y="150" text-anchor="start" data-en="RPC client" data-pt="cliente RPC">RPC client</text><text x="654" y="276" text-anchor="start" data-en="Router" data-pt="Roteador">Router</text><text x="598" y="412" text-anchor="start" data-en="Evals" data-pt="Evals">Evals</text><text x="450" y="492" text-anchor="middle" data-en="Memory" data-pt="Memória">Memory</text><text x="302" y="412" text-anchor="end" data-en="Sandbox" data-pt="Sandbox">Sandbox</text><text x="246" y="276" text-anchor="end" data-en="Governance" data-pt="Governança">Governance</text><text x="302" y="150" text-anchor="end" data-en="Graph" data-pt="Grafo">Graph</text><text x="450" y="318" text-anchor="middle" class="core-label">SelfEvoPI</text></g>
+        </svg>
+        <ul class="architecture-list">
+          <li><span class="stage-name" data-en="CLI" data-pt="CLI">CLI</span><span data-en="The REPL, palette, markdown, activity lines, and overlays." data-pt="O REPL, a paleta, markdown, linhas de atividade e overlays.">The REPL, palette, markdown, activity lines, and overlays.</span></li>
+          <li><span class="stage-name" data-en="RPC client" data-pt="cliente RPC">RPC client</span><span data-en="The single point of contact with the engine protocol." data-pt="O único ponto de contato com o protocolo do motor.">The single point of contact with the engine protocol.</span></li>
+          <li><span class="stage-name" data-en="Router" data-pt="Roteador">Router</span><span data-en="Profiles, circuit breaker, retry, and a token ceiling." data-pt="Perfis, circuit breaker, retry e teto de tokens.">Profiles, circuit breaker, retry, and a token ceiling.</span></li>
+          <li><span class="stage-name" data-en="Evals" data-pt="Evals">Evals</span><span data-en="Deterministic tasks, checkers, and a regression gate." data-pt="Tarefas determinísticas, checkers e gate de regressão.">Deterministic tasks, checkers, and a regression gate.</span></li>
+          <li><span class="stage-name" data-en="Memory" data-pt="Memória">Memory</span><span data-en="Session, project, and skills, pruned by evidence." data-pt="Sessão, projeto e skills, com poda por evidência.">Session, project, and skills, pruned by evidence.</span></li>
+          <li><span class="stage-name" data-en="Sandbox" data-pt="Sandbox">Sandbox</span><span data-en="Static gate, Permission Model, process containment." data-pt="Gate estático, Permission Model e contenção de processos.">Static gate, Permission Model, process containment.</span></li>
+          <li><span class="stage-name" data-en="Governance" data-pt="Governança">Governance</span><span data-en="Verified rollback and specific human approval." data-pt="Rollback verificado e aprovação humana específica.">Verified rollback and specific human approval.</span></li>
+          <li><span class="stage-name" data-en="Graph" data-pt="Grafo">Graph</span><span data-en="A validated graph with checkpoint, pause, and resume." data-pt="Um grafo validado com checkpoint, pausa e retomada.">A validated graph with checkpoint, pause, and resume.</span></li>
+        </ul>
+      </div>
+
+      <h3 class="subhead" data-en="Data flow and guarantees" data-pt="Fluxo de dados e garantias">Data flow and guarantees</h3>
+      <div class="engineering">
+        <div class="engineering-block">
+          <h4 data-en="One normalized event stream" data-pt="Um fluxo de eventos normalizado">One normalized event stream</h4>
+          <div class="flow-chain" role="img" aria-label="Engine to RPC client to CLI" data-en-aria="Engine to RPC client to CLI" data-pt-aria="Motor para cliente RPC para CLI">
+            <span data-en="engine" data-pt="motor">engine</span><span class="chain-node" aria-hidden="true"></span><span data-en="RPC client" data-pt="cliente RPC">RPC client</span><span class="chain-node" aria-hidden="true"></span><span data-en="CLI" data-pt="CLI">CLI</span>
+          <div class="diagram-wrap"><img src="assets/diagram-flow.svg" alt="Normalized event flow: engine → RPC client → CLI → text, tool, settled, error" width="900" height="340" loading="lazy"></div>
+        </div>
+          <ul class="event-list">
+            <li><strong>text</strong><span data-en="streamed answer" data-pt="resposta em streaming">streamed answer</span></li>
+            <li><strong>tool</strong><span data-en="start and end with target and result" data-pt="início e fim com alvo e resultado">start and end with target and result</span></li>
+            <li><strong>settled</strong><span data-en="turn closed" data-pt="turno encerrado">turn closed</span></li>
+            <li><strong>error</strong><span data-en="provider text in product language" data-pt="texto do provedor em linguagem do produto">provider text in product language</span></li>
+          </ul>
+        </div>
+        <div class="engineering-block">
+          <h4 data-en="The probe decides the artifact" data-pt="A sonda decide o artefato">The probe decides the artifact</h4>
+          <ul class="probe-list">
+            <li><span data-en="MCP config" data-pt="config de MCP">MCP config</span><span data-en="valid JSON and keys" data-pt="JSON válido e chaves">valid JSON and keys</span></li>
+            <li><span data-en="skill" data-pt="skill">skill</span><span data-en="exists and describes the capability" data-pt="existe e descreve a capacidade">exists and describes the capability</span></li>
+            <li><span data-en="CLI" data-pt="CLI">CLI</span><span data-en="probes the contract flags" data-pt="sonda as flags do contrato">probes the contract flags</span></li>
+            <li><span data-en="extension" data-pt="extensão">extension</span><span data-en="imports with a mocked host" data-pt="importa com host falso">imports with a mocked host</span></li>
+            <li><span data-en="MCP server" data-pt="servidor MCP">MCP server</span><span data-en="JSON-RPC 2.0 over stdio" data-pt="JSON-RPC 2.0 sobre stdio">JSON-RPC 2.0 over stdio</span></li>
+          </ul>
+          <p class="probe-note" data-en="The verifier runs outside the sandbox and the artifact inside a temporary directory. A smoke test that always passes is not evidence." data-pt="O verificador roda fora do sandbox e o artefato dentro de um diretório temporário. Um smoke test que sempre passa não é evidência.">The verifier runs outside the sandbox and the artifact inside a temporary directory. A smoke test that always passes is not evidence.</p>
+        </div>
+      </div>
+      <div class="guarantee-band">
+        <h4 data-en="Guarantees around the loop" data-pt="Garantias ao redor do ciclo">Guarantees around the loop</h4>
+        <ul class="guarantee-map">
+          <li data-en="Static gate masks comments and literals before analysis" data-pt="Gate estático mascara comentários e literais antes da análise">Static gate masks comments and literals before analysis</li>
+          <li data-en="Permission Model with no network or child process" data-pt="Permission Model sem rede nem processo filho">Permission Model with no network or child process</li>
+          <li data-en="Tree kill reaches detached grandchildren on timeout" data-pt="Kill de árvore alcança netos destacados no timeout">Tree kill reaches detached grandchildren on timeout</li>
+          <li data-en="Memory promotes from session to project to skills" data-pt="Memória promove de sessão para projeto para skills">Memory promotes from session to project to skills</li>
+          <li data-en="Rollback that fails never updates last known good" data-pt="Rollback que falha nunca atualiza o last known good">Rollback that fails never updates last known good</li>
+          <li data-en="Graph checkpoints bind each node to a git commit" data-pt="Checkpoints do grafo ligam cada nó a um commit git">Graph checkpoints bind each node to a git commit</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="comparison" aria-labelledby="comparisonTitle">
+    <div class="wrap">
+      <h2 id="comparisonTitle" data-en="How it compares" data-pt="Como ele se compara">How it compares</h2>
+      <p class="section-intro" data-en="Facts with a named source. Where no primary source exists, the cell says not verified." data-pt="Fatos com fonte nomeada. Onde não existe fonte primária, a célula diz não verificado.">Facts with a named source. Where no primary source exists, the cell says not verified.</p>
+      <h3 class="subhead" data-en="What sets SelfEvoPI apart" data-pt="O que distingue o SelfEvoPI">What sets SelfEvoPI apart</h3>
+      <div class="edge-list">
+        <div class="edge-item"><strong data-en="It measures before promoting" data-pt="Ele mede antes de promover">It measures before promoting</strong><span data-en="Deterministic evals compare each task with a baseline. Promotion requires the target task to pass with zero regressions." data-pt="Evals determinísticos comparam cada tarefa com a baseline. A promoção exige que a tarefa-alvo passe com zero regressões.">Deterministic evals compare each task with a baseline. Promotion requires the target task to pass with zero regressions.</span></div>
+        <div class="edge-item"><strong data-en="It writes the missing capability" data-pt="Ele escreve a capacidade que falta">It writes the missing capability</strong><span data-en="The core detects a gap, writes the lightest artifact, probes its real interface and promotes only when the gate is green." data-pt="O núcleo detecta a lacuna, escreve o artefato mais leve, sonda a interface real e promove só com o gate verde.">The core detects a gap, writes the lightest artifact, probes its real interface and promotes only when the gate is green.</span></div>
+        <div class="edge-item"><strong data-en="It routes with a budget" data-pt="Ele roteia com orçamento">It routes with a budget</strong><span data-en="Profiles, circuit breaker, retry and a token ceiling decide which provider and model run each task." data-pt="Perfis, circuit breaker, retry e teto de tokens decidem qual provider e modelo executam cada tarefa.">Profiles, circuit breaker, retry and a token ceiling decide which provider and model run each task.</span></div>
+        <div class="edge-item"><strong data-en="It contains what it runs" data-pt="Ele contém o que executa">It contains what it runs</strong><span data-en="A static gate, the Node permission model, process-tree containment and protected areas surround generated code on Windows." data-pt="Um gate estático, o permission model do Node, contenção da árvore de processos e áreas protegidas cercam o código gerado no Windows.">A static gate, the Node permission model, process-tree containment and protected areas surround generated code on Windows.</span></div>
+        <div class="edge-item"><strong data-en="It leaves an audit trail" data-pt="Ele deixa rastro de auditoria">It leaves an audit trail</strong><span data-en="Block and warn decisions go to a local ledger with redacted excerpts, readable without exposing secrets." data-pt="Decisões block e warn vão para um ledger local com trechos redigidos, legíveis sem expor segredos.">Block and warn decisions go to a local ledger with redacted excerpts, readable without exposing secrets.</span></div>
+        <div class="edge-item"><strong data-en="It runs hooks without a shell" data-pt="Ele roda hooks sem shell">It runs hooks without a shell</strong><span data-en="Lifecycle hooks read JSON from stdin, have a timeout and a minimal environment, and never call a shell." data-pt="Hooks de ciclo de vida leem JSON do stdin, têm timeout e ambiente mínimo, e nunca chamam um shell.">Lifecycle hooks read JSON from stdin, have a timeout and a minimal environment, and never call a shell.</span></div>
+      </div>
+      <h3 class="subhead" data-en="Other harnesses" data-pt="Outros harnesses">Other harnesses</h3>
+      <div class="harness-notes" id="harnessNotes">
+        <article class="harness-note">
+          <h4>Claude Code</h4>
+          <p data-en="CLI, IDE, desktop, web and mobile over one engine. Anthropic models with third-party providers on some surfaces. Auto memory, /resume with search, /fork, /rewind and /goal with a separate evaluator. Six named permission modes, MCP, skills and plugins. No primary source says it modifies its own code." data-pt="CLI, IDE, desktop, web e mobile sobre um motor. Modelos Anthropic com provedores terceiros em algumas superfícies. Auto memory, /resume com busca, /fork, /rewind e /goal com avaliador separado. Seis modos de permissão nomeados, MCP, skills e plugins. Nenhuma fonte primária diz que ele modifica o próprio código.">CLI, IDE, desktop, web and mobile over one engine. Anthropic models with third-party providers on some surfaces. Auto memory, /resume with search, /fork, /rewind and /goal with a separate evaluator. Six named permission modes, MCP, skills and plugins. No primary source says it modifies its own code.</p>
+          <p class="delta"><span data-en="SelfEvoPI adds" data-pt="O SelfEvoPI adiciona">SelfEvoPI adds</span> <span data-en="a baseline regression gate and a core that writes and verifies artifacts. No primary source says Claude Code rewrites its own harness." data-pt="um gate de regressão contra baseline e um núcleo que escreve e verifica artefatos. Nenhuma fonte primária diz que o Claude Code reescreve o próprio harness.">a baseline regression gate and a core that writes and verifies artifacts. No primary source says Claude Code rewrites its own harness.</span></p>
+          
+        </article>
+        <article class="harness-note">
+          <h4>OpenCode</h4>
+          <p data-en="The most model-agnostic of the group: TUI, desktop and web through opencode pair. MCP, plugins, skills and agents in Markdown files. /sessions, /fork, /compact and background subagents. No named approval modes; security is allow, ask and deny rules per agent. No /goal or /loop confirmed in the inventory of 34 commands." data-pt="O mais agnóstico do grupo: TUI, desktop e web por opencode pair. MCP, plugins, skills e agentes em arquivos Markdown. /sessions, /fork, /compact e subagentes em background. Sem modos de aprovação nomeados; a segurança são regras allow, ask e deny por agente. Sem /goal ou /loop confirmados no inventário de 34 comandos.">The most model-agnostic of the group: TUI, desktop and web through opencode pair. MCP, plugins, skills and agents in Markdown files. /sessions, /fork, /compact and background subagents. No named approval modes; security is allow, ask and deny rules per agent. No /goal or /loop confirmed in the inventory of 34 commands.</p>
+          <p class="delta"><span data-en="SelfEvoPI adds" data-pt="O SelfEvoPI adiciona">SelfEvoPI adds</span> <span data-en="deterministic evals with a regression gate, a native Windows sandbox and a redacted security ledger." data-pt="evals determinísticos com gate de regressão, um sandbox Windows nativo e um ledger de segurança com trechos redigidos.">deterministic evals with a regression gate, a native Windows sandbox and a redacted security ledger.</span></p>
+          
+        </article>
+        <article class="harness-note">
+          <h4>Codex CLI</h4>
+          <p data-en="OpenAI models across CLI, desktop, web and cloud. MCP, skills, subagents and /goal tied to a verifiable condition. It separates sandbox reach from the moment of asking, with automatic approval review. Four named interface modes and /permissions in the CLI." data-pt="Modelos OpenAI em CLI, desktop, web e nuvem. MCP, skills, subagentes e /goal ligado a uma condição verificável. Separa o alcance do sandbox do momento da pergunta, com revisão automática de aprovações. Quatro modos de interface nomeados e /permissions na CLI.">OpenAI models across CLI, desktop, web and cloud. MCP, skills, subagents and /goal tied to a verifiable condition. It separates sandbox reach from the moment of asking, with automatic approval review. Four named interface modes and /permissions in the CLI.</p>
+          <p class="delta"><span data-en="SelfEvoPI adds" data-pt="O SelfEvoPI adiciona">SelfEvoPI adds</span> <span data-en="an engine-agnostic router with profiles, circuit breaker and a token ceiling. The sources consulted tie Codex to OpenAI models." data-pt="um roteador agnóstico com perfis, circuit breaker e teto de tokens. As fontes consultadas ligam o Codex a modelos OpenAI.">an engine-agnostic router with profiles, circuit breaker and a token ceiling. The sources consulted tie Codex to OpenAI models.</span></p>
+          
+        </article>
+        <article class="harness-note">
+          <h4>Hermes Agent</h4>
+          <p data-en="Model-agnostic across CLI, desktop and messaging gateways. Memory in MEMORY.md and USER.md with FTS5 search over past conversations. Over 40 tools, MCP, skills, plugins and subagents. Declared self-evolution: it creates and improves skills and runs background review. /goal uses an auxiliary Ralph-loop judge. Eight documented security layers." data-pt="Agnóstico em CLI, desktop e gateways de mensageria. Memória em MEMORY.md e USER.md com busca FTS5 sobre conversas antigas. Mais de 40 tools, MCP, skills, plugins e subagentes. Auto-evolução declarada: cria e melhora skills e roda revisão em background. /goal usa um juiz auxiliar Ralph loop. Oito camadas de segurança documentadas.">Model-agnostic across CLI, desktop and messaging gateways. Memory in MEMORY.md and USER.md with FTS5 search over past conversations. Over 40 tools, MCP, skills, plugins and subagents. Declared self-evolution: it creates and improves skills and runs background review. /goal uses an auxiliary Ralph-loop judge. Eight documented security layers.</p>
+          <p class="delta"><span data-en="SelfEvoPI adds" data-pt="O SelfEvoPI adiciona">SelfEvoPI adds</span> <span data-en="a baseline comparison before promotion and probes of the real artifact interface. Both evolve, but the sources describe different gates." data-pt="uma comparação com a baseline antes da promoção e sondas da interface real do artefato. Ambos evoluem, mas as fontes descrevem gates diferentes.">a baseline comparison before promotion and probes of the real artifact interface. Both evolve, but the sources describe different gates.</span></p>
+          
+        </article>
+        <article class="harness-note">
+          <h4>DeepSeek Harness</h4>
+          <p data-en="Everything is a plugin over Cordis: model, tools and agent loop are replaceable by configuration. Web UI, Desktop, CLI, SDK and ACP. Append-only session log with fork and resume. ctx.goals is same-session; no evidence of self-evolution, long-term memory, MCP, REPL or named skills. SAFETY.md calls it a developer preview with no audit and says sandboxing does not guarantee isolation." data-pt="Tudo é plugin sobre Cordis: modelo, tools e agent loop substituíveis por configuração. Web UI, Desktop, CLI, SDK e ACP. Log de sessão append-only com fork e resume. ctx.goals é same-session; sem evidência de auto-evolução, memória de longo prazo, MCP, REPL ou skills nomeados. SAFETY.md chama o projeto de developer preview sem auditoria e diz que sandbox não garante isolamento.">Everything is a plugin over Cordis: model, tools and agent loop are replaceable by configuration. Web UI, Desktop, CLI, SDK and ACP. Append-only session log with fork and resume. ctx.goals is same-session; no evidence of self-evolution, long-term memory, MCP, REPL or named skills. SAFETY.md calls it a developer preview with no audit and says sandboxing does not guarantee isolation.</p>
+          <p class="delta"><span data-en="SelfEvoPI adds" data-pt="O SelfEvoPI adiciona">SelfEvoPI adds</span> <span data-en="verified rollback, a static gate and memory that persists across sessions. DeepSeek documents same-session goals only." data-pt="rollback verificado, um gate estático e memória que persiste entre sessões. O DeepSeek documenta apenas metas na mesma sessão.">verified rollback, a static gate and memory that persists across sessions. DeepSeek documents same-session goals only.</span></p>
+          
+        </article>
+        <article class="harness-note">
+          <h4>Unharnessed</h4>
+          <p data-en="One tool: a persistent Python REPL. The model writes the rest. No declared memory, no permission prompts, no subagents. Goal mode ends only with goal.complete(), with a budget that degrades and gates run by the harness. The README warns that the kernel is not a sandbox. The 47 of 66 claim is not verifiable because the benchmark section shows Placeholder data." data-pt="Um tool: um REPL Python persistente. O modelo escreve o resto. Sem memória declarada, sem prompts de permissão, sem subagentes. Goal mode termina só com goal.complete(), com orçamento que degrada e gates executados pelo harness. O README avisa que o kernel não é sandbox. A afirmação 47 de 66 não é verificável porque a seção de benchmark mostra Placeholder data.">One tool: a persistent Python REPL. The model writes the rest. No declared memory, no permission prompts, no subagents. Goal mode ends only with goal.complete(), with a budget that degrades and gates run by the harness. The README warns that the kernel is not a sandbox. The 47 of 66 claim is not verifiable because the benchmark section shows Placeholder data.</p>
+          <p class="delta"><span data-en="SelfEvoPI adds" data-pt="O SelfEvoPI adiciona">SelfEvoPI adds</span> <span data-en="the structure Unharnessed leaves out: router, evals, memory, sandbox and governance. The tradeoff is deliberate, not a defect." data-pt="a estrutura que o Unharnessed deixa de fora: roteador, evals, memória, sandbox e governança. A troca é deliberada, não um defeito.">the structure Unharnessed leaves out: router, evals, memory, sandbox and governance. The tradeoff is deliberate, not a defect.</span></p>
+          
+        </article>
+        <article class="harness-note">
+          <h4>PI Coding Agent</h4>
+          <p data-en="A minimal and extensible harness. Five interfaces: TUI, print, JSON, RPC and SDK. Model-agnostic through pi-ai. Session tree, native MCP, skills as /skill:name, custom keybindings and RPC. The README says it deliberately skips subagents and plan mode and includes no permission system, so it runs with the permissions of the user who launched it." data-pt="Um harness mínimo e extensível. Cinco interfaces: TUI, print, JSON, RPC e SDK. Agnóstico por pi-ai. Árvore de sessões, MCP nativo, skills como /skill:nome, keybindings e RPC. O README diz que omite de propósito subagentes e plan mode e não inclui sistema de permissões, rodando com as permissões de quem o iniciou.">A minimal and extensible harness. Five interfaces: TUI, print, JSON, RPC and SDK. Model-agnostic through pi-ai. Session tree, native MCP, skills as /skill:name, custom keybindings and RPC. The README says it deliberately skips subagents and plan mode and includes no permission system, so it runs with the permissions of the user who launched it.</p>
+          <p class="delta"><span data-en="SelfEvoPI adds" data-pt="O SelfEvoPI adiciona">SelfEvoPI adds</span> <span data-en="a built-in permission system, a native sandbox and a regression gate. The Pi README says it omits a permission system and subagents by design." data-pt="um sistema de permissões embutido, um sandbox nativo e um gate de regressão. O README do Pi diz que omite permissões e subagentes por desenho.">a built-in permission system, a native sandbox and a regression gate. The Pi README says it omits a permission system and subagents by design.</span></p>
+          
+        </article>
+      </div>
+      <div class="tension">
+        <p class="tension-subject" data-en="SelfEvoPI bets that the right amount of structure wins." data-pt="SelfEvoPI aposta que a estrutura na medida certa vence.">SelfEvoPI bets that the right amount of structure wins.</p>
+        <p data-en="Unharnessed bets that less structure wins. The 47 of 66 tasks claim on its site is unverified: the benchmark section shows Placeholder data." data-pt="Unharnessed aposta que menos estrutura vence. A afirmação de 47 de 66 tarefas no site não é verificada: a seção de benchmark mostra Placeholder data.">Unharnessed bets that less structure wins. The 47 of 66 tasks claim on its site is unverified: the benchmark section shows Placeholder data.</p>
+      </div>
+      <div class="table-scroll">
+        <table class="comparison-table">
+          <caption class="visually-hidden" data-en="Harness comparison" data-pt="Comparação entre harnesses">Harness comparison</caption>
+          <thead><tr>
+            <th scope="col" data-en="Harness" data-pt="Harness">Harness</th>
+            <th scope="col" data-en="Surface" data-pt="Superfície">Surface</th>
+            <th scope="col" data-en="Model relation" data-pt="Relação com o modelo">Model relation</th>
+            <th scope="col" data-en="Memory" data-pt="Memória">Memory</th>
+            <th scope="col" data-en="Tools" data-pt="Ferramentas">Tools</th>
+            <th scope="col" data-en="Evolution" data-pt="Evolução">Evolution</th>
+            <th scope="col" data-en="Sandbox" data-pt="Sandbox">Sandbox</th>
+          </tr></thead>
+          <tbody id="comparisonRows">
+            <tr class="is-subject"><th scope="row">SelfEvoPI</th><td data-label="Surface" data-en="CLI" data-pt="CLI">CLI</td><td data-label="Model relation" data-en="Agnostic router, no engine fork" data-pt="Roteador agnóstico, sem fork do motor">Agnostic router, no engine fork</td><td data-label="Memory" data-en="Persistent, three levels" data-pt="Persistente, três níveis">Persistent, three levels</td><td data-label="Tools" data-en="CLI commands, MCP, subagents" data-pt="Comandos da CLI, MCP, subagentes">CLI commands, MCP, subagents</td><td data-label="Evolution" data-en="Detect to promote, with regression gate" data-pt="Detectar a promover, com gate de regressão">Detect to promote, with regression gate</td><td data-label="Sandbox" data-en="Windows native, static gate" data-pt="Nativo no Windows, gate estático">Windows native, static gate</td></tr>
+            <tr><th scope="row">Claude Code</th><td data-label="Surface" data-en="CLI, IDE, desktop, web, mobile" data-pt="CLI, IDE, desktop, web, mobile">CLI, IDE, desktop, web, mobile</td><td data-label="Model relation" data-en="Anthropic, some third-party providers" data-pt="Anthropic, alguns provedores terceiros">Anthropic, some third-party providers</td><td data-label="Memory" data-en="Auto memory, resume, fork, rewind" data-pt="Auto memory, resume, fork, rewind">Auto memory, resume, fork, rewind</td><td data-label="Tools" data-en="MCP, skills, plugins, hooks" data-pt="MCP, skills, plugins, hooks">MCP, skills, plugins, hooks</td><td data-label="Evolution" data-en="/goal with a separate evaluator" data-pt="/goal com avaliador separado">/goal with a separate evaluator</td><td data-label="Sandbox" data-en="Six named permission modes" data-pt="Seis modos de permissão nomeados">Six named permission modes</td></tr>
+            <tr><th scope="row">OpenCode</th><td data-label="Surface" data-en="TUI, desktop, web" data-pt="TUI, desktop, web">TUI, desktop, web</td><td data-label="Model relation" data-en="Agnostic, multi-provider" data-pt="Agnóstico, multi-provider">Agnostic, multi-provider</td><td data-label="Memory" data-en="Sessions, fork, compact" data-pt="Sessões, fork, compact">Sessions, fork, compact</td><td data-label="Tools" data-en="MCP, plugins, skills, Markdown agents" data-pt="MCP, plugins, skills, agentes em Markdown">MCP, plugins, skills, Markdown agents</td><td data-label="Evolution" data-en="Not verified" data-pt="Não verificado">Not verified</td><td data-label="Sandbox" data-en="Allow, ask, deny rules per agent" data-pt="Regras allow, ask, deny por agente">Allow, ask, deny rules per agent</td></tr>
+            <tr><th scope="row">Codex CLI</th><td data-label="Surface" data-en="CLI, desktop, web, cloud" data-pt="CLI, desktop, web, nuvem">CLI, desktop, web, cloud</td><td data-label="Model relation" data-en="OpenAI models" data-pt="Modelos OpenAI">OpenAI models</td><td data-label="Memory" data-en="Resume, fork, persistent goals" data-pt="Resume, fork, metas persistentes">Resume, fork, persistent goals</td><td data-label="Tools" data-en="MCP, skills, subagents, hooks" data-pt="MCP, skills, subagentes, hooks">MCP, skills, subagents, hooks</td><td data-label="Evolution" data-en="/goal with a verifiable condition" data-pt="/goal com condição verificável">/goal with a verifiable condition</td><td data-label="Sandbox" data-en="Sandbox and approvals separated" data-pt="Sandbox e aprovações separados">Sandbox and approvals separated</td></tr>
+            <tr><th scope="row">Hermes Agent</th><td data-label="Surface" data-en="CLI, desktop, messaging gateways" data-pt="CLI, desktop, gateways de mensageria">CLI, desktop, messaging gateways</td><td data-label="Model relation" data-en="Agnostic" data-pt="Agnóstico">Agnostic</td><td data-label="Memory" data-en="MEMORY.md, USER.md, FTS5 search" data-pt="MEMORY.md, USER.md, busca FTS5">MEMORY.md, USER.md, FTS5 search</td><td data-label="Tools" data-en="40+ tools, MCP, skills, plugins" data-pt="Mais de 40 tools, MCP, skills, plugins">40+ tools, MCP, skills, plugins</td><td data-label="Evolution" data-en="Declared self-evolution, Ralph judge" data-pt="Auto-evolução declarada, juiz Ralph">Declared self-evolution, Ralph judge</td><td data-label="Sandbox" data-en="Eight documented layers" data-pt="Oito camadas documentadas">Eight documented layers</td></tr>
+            <tr><th scope="row">DeepSeek Harness</th><td data-label="Surface" data-en="Web, desktop, CLI, SDK, ACP" data-pt="Web, desktop, CLI, SDK, ACP">Web, desktop, CLI, SDK, ACP</td><td data-label="Model relation" data-en="Agnostic by configuration" data-pt="Agnóstico por configuração">Agnostic by configuration</td><td data-label="Memory" data-en="Append-only log, fork, resume" data-pt="Log append-only, fork, resume">Append-only log, fork, resume</td><td data-label="Tools" data-en="Plugins over Cordis" data-pt="Plugins sobre Cordis">Plugins over Cordis</td><td data-label="Evolution" data-en="Same-session goals only" data-pt="Apenas metas na mesma sessão">Same-session goals only</td><td data-label="Sandbox" data-en="Developer preview, no audit" data-pt="Developer preview, sem auditoria">Developer preview, no audit</td></tr>
+            <tr><th scope="row">Unharnessed</th><td data-label="Surface" data-en="VS Code extension, CLI, ACP" data-pt="Extensão VS Code, CLI, ACP">VS Code extension, CLI, ACP</td><td data-label="Model relation" data-en="Agnostic, many providers" data-pt="Agnóstico, muitos provedores">Agnostic, many providers</td><td data-label="Memory" data-en="None by design" data-pt="Nenhuma, por desenho">None by design</td><td data-label="Tools" data-en="One Python REPL, MCP in kernel" data-pt="Um REPL Python, MCP no kernel">One Python REPL, MCP in kernel</td><td data-label="Evolution" data-en="Goal and harness-run gates" data-pt="Goal e gates executados pelo harness">Goal and harness-run gates</td><td data-label="Sandbox" data-en="None, kernel is not a sandbox" data-pt="Nenhum, o kernel não é sandbox">None, kernel is not a sandbox</td></tr>
+            <tr><th scope="row">PI Coding Agent</th><td data-label="Surface" data-en="TUI, print, JSON, RPC, SDK" data-pt="TUI, print, JSON, RPC, SDK">TUI, print, JSON, RPC, SDK</td><td data-label="Model relation" data-en="Agnostic through pi-ai" data-pt="Agnóstico por pi-ai">Agnostic through pi-ai</td><td data-label="Memory" data-en="Session tree, resume" data-pt="Árvore de sessões, resume">Session tree, resume</td><td data-label="Tools" data-en="MCP, skills, keybindings, RPC" data-pt="MCP, skills, keybindings, RPC">MCP, skills, keybindings, RPC</td><td data-label="Evolution" data-en="Not verified" data-pt="Não verificado">Not verified</td><td data-label="Sandbox" data-en="No built-in permission system" data-pt="Sem sistema de permissões embutido">No built-in permission system</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="evidence" aria-labelledby="evidenceTitle">
+    <div class="wrap">
+      <h2 id="evidenceTitle" data-en="Evidence" data-pt="Evidência">Evidence</h2>
+      <p class="section-intro" data-en="Every number has a command and a date. These are measurements from one day, not a performance guarantee." data-pt="Todo número tem comando e data. São medições de um dia, não garantia de desempenho.">Every number has a command and a date. These are measurements from one day, not a performance guarantee.</p>
+      <div class="table-scroll">
+        <table class="evidence-table">
+          <caption class="visually-hidden" data-en="Measured evidence, 22 November 2026" data-pt="Evidência medida, 22 de novembro de 2026">Measured evidence, 22 November 2026</caption>
+          <thead><tr>
+            <th scope="col" data-en="Metric" data-pt="Métrica">Metric</th>
+            <th scope="col" data-en="Value" data-pt="Valor">Value</th>
+            <th scope="col" data-en="Command" data-pt="Comando">Command</th>
+                      </tr></thead>
+          <tbody>
+            <tr><td data-label="Metric" data-en="Unit tests" data-pt="Testes unitários">Unit tests</td><td data-label="Value" data-en="1044 total, 1043 pass, 1 skip" data-pt="1044 no total, 1043 passam, 1 skip">1044 total, 1043 pass, 1 skip</td><td data-label="Command" class="cmd">npm test</td></tr>
+            <tr><td data-label="Metric" data-en="Full verification" data-pt="Verificação completa">Full verification</td><td data-label="Value" data-en="exit 0, 33 of 33 URLs return 200" data-pt="exit 0, 33 de 33 URLs respondem 200">exit 0, 33 of 33 URLs return 200</td><td data-label="Command" class="cmd">npm run verify</td></tr>
+            <tr><td data-label="Metric" data-en="Cold start" data-pt="Partida a frio">Cold start</td><td data-label="Value" data-en="~82 ms mean, 7 runs" data-pt="média de ~82 ms, 7 execuções">~82 ms mean, 7 runs</td><td data-label="Command" class="cmd">timed node apps/cli.mjs --version</td></tr>
+            <tr><td data-label="Metric" data-en="Prompt overhead" data-pt="Acréscimo de prompt">Prompt overhead</td><td data-label="Value" data-en="+499 tokens over a 1500 token ceiling" data-pt="+499 tokens sobre teto de 1500 tokens">+499 tokens over a 1500 token ceiling</td><td data-label="Command" class="cmd">node scripts/measure-selfevopi-overhead.mjs --runs 3</td></tr>
+            <tr><td data-label="Metric" data-en="Model capabilities" data-pt="Capacidades dos modelos">Model capabilities</td><td data-label="Value" data-en="48 of 48 checked" data-pt="48 de 48 conferidos">48 of 48 checked</td><td data-label="Command" class="cmd">npm run models:check</td></tr>
+            <tr><td data-label="Metric" data-en="Node app task" data-pt="Tarefa de app Node">Node app task</td><td data-label="Value" data-en="7.4 s, files created, tool calling" data-pt="7,4 s, arquivos criados, tool calling">7.4 s, files created, tool calling</td><td data-label="Command" class="cmd" data-en="Task in a temporary workspace" data-pt="Tarefa em workspace temporário">Task in a temporary workspace</td></tr>
+            <tr><td data-label="Metric" data-en="HTML site task" data-pt="Tarefa de site HTML">HTML site task</td><td data-label="Value" data-en="9.2 s, files created, tool calling" data-pt="9,2 s, arquivos criados, tool calling">9.2 s, files created, tool calling</td><td data-label="Command" class="cmd" data-en="Task in a temporary workspace" data-pt="Tarefa em workspace temporário">Task in a temporary workspace</td></tr>
+            <tr><td data-label="Metric" data-en="Two parallel subagents" data-pt="Dois subagentes em paralelo">Two parallel subagents</td><td data-label="Value" data-en="3.1 s, both answered" data-pt="3,1 s, ambos responderam">3.1 s, both answered</td><td data-label="Command" class="cmd">runSwarmExecution</td></tr>
+            <tr><td data-label="Metric" data-en="Lifecycle hooks" data-pt="Hooks de ciclo de vida">Lifecycle hooks</td><td data-label="Value" data-en="6 events, no shell, timeout and redaction" data-pt="6 eventos, sem shell, timeout e redação">6 events, no shell, timeout and redaction</td><td data-label="Command" class="cmd">core/agent/hooks.test.mjs and end-to-end test</td></tr>
+            <tr><td data-label="Metric" data-en="Security ledger" data-pt="Ledger de segurança">Security ledger</td><td data-label="Value" data-en="block and warn decisions with redacted excerpt" data-pt="decisões block e warn com trecho redigido">block and warn decisions with redacted excerpt</td><td data-label="Command" class="cmd">core/sandbox/telemetry.test.mjs</td></tr>
+            <tr><td data-label="Metric" data-en="Text contrast" data-pt="Contraste do texto">Text contrast</td><td data-label="Value" data-en="above 7:1 in every theme" data-pt="acima de 7:1 em todos os temas">above 7:1 in every theme</td><td data-label="Command" class="cmd">core/agent/theme.test.mjs</td></tr>
+            <tr><td data-label="Metric" data-en="Pipe output" data-pt="Saída em pipe">Pipe output</td><td data-label="Value" data-en="no carriage return or cursor erase in 12 tasks" data-pt="sem retorno de carro nem apagamento de cursor em 12 tarefas">no carriage return or cursor erase in 12 tasks</td><td data-label="Command" class="cmd">logs of the 12 tasks</td></tr>
+            <tr><td data-label="Metric" data-en="Transitive model error" data-pt="Erro transitivo do modelo">Transitive model error</td><td data-label="Value" data-en="429 followed by an answer is not reported as failure" data-pt="429 seguido de resposta não é reportado como falha">429 followed by an answer is not reported as failure</td><td data-label="Command" class="cmd">apps/cli.test.mjs</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="limits" aria-labelledby="limitsTitle">
+    <div class="wrap">
+      <h2 id="limitsTitle" data-en="Security and limits" data-pt="Segurança e limites">Security and limits</h2>
+      <div class="limits-grid">
+        <div class="limit-column">
+          <h3 data-en="What exists" data-pt="O que existe">What exists</h3>
+          <ul class="limit-nodes">
+            <li><span class="limit-dot" aria-hidden="true"></span><span data-en="Static gate, 13 rules, Permission Model, process containment" data-pt="Gate estático, 13 regras, Permission Model, contenção de processos">Static gate, 13 rules, Permission Model, process containment</span></li>
+            <li><span class="limit-dot" aria-hidden="true"></span><span data-en="evals/ and core/governance/ stay protected" data-pt="evals/ e core/governance/ permanecem protegidas">evals/ and core/governance/ stay protected</span></li>
+            <li><span class="limit-dot" aria-hidden="true"></span><span data-en="Network, credentials, and outside writes pause for approval" data-pt="Rede, credenciais e escrita externa pausam para aprovação">Network, credentials, and outside writes pause for approval</span></li>
+            <li><span class="limit-dot" aria-hidden="true"></span><span data-en="No secret is printed, logged, or committed" data-pt="Nenhum segredo é impresso, logado ou comitado">No secret is printed, logged, or committed</span></li>
+            <li><span class="limit-dot" aria-hidden="true"></span><span data-en="Lifecycle hooks read JSON, never call a shell" data-pt="Hooks de ciclo de vida leem JSON, nunca chamam um shell">Lifecycle hooks read JSON, never call a shell</span></li>
+          </ul>
+        </div>
+        <div class="limit-spine" aria-hidden="true"></div>
+        <div class="limit-column">
+          <h3 data-en="What does not exist" data-pt="O que não existe">What does not exist</h3>
+          <ul class="limit-nodes">
+            <li><span class="limit-dot is-open" aria-hidden="true"></span><span data-en="Lexical skills, no embeddings" data-pt="Skills lexicais, sem embeddings">Lexical skills, no embeddings</span></li>
+            <li><span class="limit-dot is-open" aria-hidden="true"></span><span data-en="Clock and ledger trigger, no external events" data-pt="Relógio e ledger disparam, sem eventos externos">Clock and ledger trigger, no external events</span></li>
+            <li><span class="limit-dot is-open" aria-hidden="true"></span><span data-en="Four models end calls without text" data-pt="Quatro modelos terminam chamadas sem texto">Four models end calls without text</span></li>
+            <li><span class="limit-dot is-open" aria-hidden="true"></span><span data-en="No /btw, custom keybindings, or title progress bar" data-pt="Sem /btw, keybindings customizáveis ou barra de progresso no título">No /btw, custom keybindings, or title progress bar</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="install" aria-labelledby="installTitle" data-source="docs/estado.md">
+    <div class="wrap">
+      <h2 id="installTitle" data-en="Install" data-pt="Instalação">Install</h2>
+      <p class="section-intro" data-en="The repository is the current path. Four commands take a clean checkout to a running CLI." data-pt="O repositório é o caminho atual. Quatro comandos levam um checkout limpo a uma CLI em execução.">The repository is the current path. Four commands take a clean checkout to a running CLI.</p>
+      <pre class="terminal"><code>git clone &lt;repo-url&gt; SelfEvoPI
+cd SelfEvoPI
+npm run verify
+npm run cli</code></pre>
+      <h3 class="subhead" data-en="Requirements" data-pt="Requisitos">Requirements</h3>
+      <div class="edge-list">
+        <div class="edge-item"><strong data-en="Windows, native" data-pt="Windows, nativo">Windows, native</strong><span data-en="No Docker, WSL or virtual machine." data-pt="Sem Docker, WSL ou máquina virtual.">No Docker, WSL or virtual machine.</span></div>
+        <div class="edge-item"><strong data-en="Node 22.19.1 or newer" data-pt="Node 22.19.1 ou mais novo">Node 22.19.1 or newer</strong><span data-en="The version floor the harness is measured against." data-pt="A versão mínima contra a qual o harness é medido.">The version floor the harness is measured against.</span></div>
+        <div class="edge-item"><strong data-en="Git 2.55 or newer" data-pt="Git 2.55 ou mais novo">Git 2.55 or newer</strong><span data-en="With core.longpaths set to true." data-pt="Com core.longpaths definido como true.">With core.longpaths set to true.</span></div>
+        <div class="edge-item"><strong data-en="The engine CLI" data-pt="A CLI do motor">The engine CLI</strong><span data-en="Installed separately. SelfEvoPI speaks to it over RPC and does not fork it." data-pt="Instalada à parte. O SelfEvoPI fala com ela por RPC e não a bifurca.">Installed separately. SelfEvoPI speaks to it over RPC and does not fork it.</span></div>
+      </div>
+      <p class="probe-note" data-en="npm run verify is what CI runs. It is green on this checkout: exit 0 and 33 of 33 source URLs returning 200,." data-pt="npm run verify é o que o CI roda. Está verde neste checkout: exit 0 e 33 de 33 URLs de origem respondendo 200,.">npm run verify is what CI runs. It is green on this checkout: exit 0 and 33 of 33 source URLs returning 200,.</p>
+    </div>
+  </section>
+
+  <section class="section reveal" id="cli-surface" aria-labelledby="cliSurfaceTitle" data-source="docs/produto.md and README.md">
+    <div class="wrap">
+      <h2 id="cliSurfaceTitle" data-en="CLI surface" data-pt="Superfície da CLI">CLI surface</h2>
+      <p class="section-intro" data-en="One surface: a conversation with a command palette. Modes change what the harness may do with the workspace. Commands change what it knows and shows." data-pt="Uma superfície: uma conversa com paleta de comandos. Os modos mudam o que o harness pode fazer com o workspace. Os comandos mudam o que ele sabe e mostra.">One surface: a conversation with a command palette. Modes change what the harness may do with the workspace. Commands change what it knows and shows.</p>
+
+      <h3 class="subhead" data-en="Modes" data-pt="Modos">Modes</h3>
+      <div class="flow-chain" role="img" aria-label="Plan, build, manual, ask and goal" data-en-aria="Plan, build, manual, ask and goal" data-pt-aria="Plan, build, manual, ask e goal">
+        <span data-en="plan" data-pt="plan">plan</span><span class="chain-node" aria-hidden="true"></span><span data-en="build" data-pt="build">build</span><span class="chain-node" aria-hidden="true"></span><span data-en="manual" data-pt="manual">manual</span><span class="chain-node" aria-hidden="true"></span><span data-en="ask" data-pt="ask">ask</span><span class="chain-node" aria-hidden="true"></span><span data-en="goal" data-pt="goal">goal</span>
+      </div>
+      <ul class="probe-list">
+        <li><span data-en="/plan" data-pt="/plan">/plan</span><span data-en="Reads and proposes. It does not write." data-pt="Lê e propõe. Não escreve.">Reads and proposes. It does not write.</span></li>
+        <li><span data-en="/build" data-pt="/build">/build</span><span data-en="Writes and runs inside the workspace." data-pt="Escreve e executa dentro do workspace.">Writes and runs inside the workspace.</span></li>
+        <li><span data-en="/manual" data-pt="/manual">/manual</span><span data-en="Build with a confirmation before each write." data-pt="Build com confirmação antes de cada escrita.">Build with a confirmation before each write.</span></li>
+        <li><span data-en="/ask" data-pt="/ask">/ask</span><span data-en="Answers only. It never touches disk." data-pt="Só responde. Nunca toca o disco.">Answers only. It never touches disk.</span></li>
+        <li><span data-en="/goal &lt;condition&gt;" data-pt="/goal &lt;condição&gt;">/goal &lt;condição&gt;</span><span data-en="Adds a completion check that clears itself once satisfied." data-pt="Adiciona um check de conclusão que se apaga quando satisfeito.">Adds a completion check that clears itself once satisfied.</span></li>
+      </ul>
+      <div class="diagram-wrap"><img src="assets/diagram-session-states.svg" alt="Session states: launch → active → resume/fork/compacted" width="900" height="300" loading="lazy"></div>
+      <p class="probe-note" data-en="Permission and approver are separate axes from mode, and the status line shows them separately." data-pt="Permissão e aprovador são eixos separados do modo, e a barra de status os mostra separadamente.">Permission and approver are separate axes from mode, and the status line shows them separately.</p>
+
+      <h3 class="subhead" data-en="Commands by group" data-pt="Comandos por grupo">Commands by group</h3>
+      <div class="table-scroll">
+        <table class="command-table is-narrow">
+          <caption class="visually-hidden" data-en="Commands grouped by function" data-pt="Comandos agrupados por função">Commands grouped by function</caption>
+          <thead><tr>
+            <th scope="col" data-en="Group" data-pt="Grupo">Group</th>
+            <th scope="col" data-en="Commands" data-pt="Comandos">Commands</th>
+          </tr></thead>
+          <tbody>
+            <tr><th scope="row" data-en="Evolution" data-pt="Evolução">Evolution</th><td><code>/evo</code> <code>/detect</code> <code>/memory</code> <code>/skills</code></td></tr>
+            <tr><th scope="row" data-en="Session" data-pt="Sessão">Session</th><td><code>/sessions</code> <code>/fork</code> <code>/resume</code> <code>/compact</code> <code>/export</code> <code>/undo</code> <code>/redo</code> <code>/diff</code></td></tr>
+            <tr><th scope="row" data-en="Context" data-pt="Contexto">Context</th><td><code>/cost</code> <code>/status</code> <code>/context</code> <code>/history</code> <code>/verbosity</code></td></tr>
+            <tr><th scope="row" data-en="Provider" data-pt="Provedor">Provider</th><td><code>/providers</code> <code>/model</code> <code>/effort</code> <code>/theme</code> <code>/language</code> <code>/reload</code></td></tr>
+            <tr><th scope="row" data-en="Orchestration" data-pt="Orquestração">Orchestration</th><td><code>/swarm</code> <code>/subagent</code> <code>/worktree</code> <code>/mcp</code> <code>/plugins</code></td></tr>
+            <tr><th scope="row" data-en="Editing" data-pt="Edição">Editing</th><td><code>/paste</code> <code>/attach</code> <code>/images</code> <code>/init</code> <code>/import</code> <code>/hooks</code> <code>/security-log</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="themes" aria-labelledby="themesTitle" data-source="docs/estado.md §3 and docs/produto.md">
+    <div class="wrap">
+      <h2 id="themesTitle" data-en="Themes" data-pt="Temas">Themes</h2>
+      <p class="section-intro" data-en="The picker holds twelve built-in palettes and three editable slots. Each palette maps the same semantic roles, so switching one changes the whole interface at once instead of one element at a time." data-pt="O seletor traz doze paletas embutidas e três slots editáveis. Cada paleta mapeia os mesmos papéis semânticos, então trocar uma muda a interface inteira de uma vez, e não um elemento por vez.">The picker holds twelve built-in palettes and three editable slots. Each palette maps the same semantic roles, so switching one changes the whole interface at once instead of one element at a time.</p>
+      <ul class="swatch-grid">
+        <li class="swatch"><span class="swatch-chip" aria-hidden="true"></span><span class="swatch-name" data-en="padrao" data-pt="padrao">padrao</span></li>
+        <li class="swatch"><span class="swatch-chip" aria-hidden="true"></span><span class="swatch-name" data-en="violeta" data-pt="violeta">violeta</span></li>
+        <li class="swatch"><span class="swatch-chip" aria-hidden="true"></span><span class="swatch-name" data-en="azul" data-pt="azul">azul</span></li>
+        <li class="swatch"><span class="swatch-chip" aria-hidden="true"></span><span class="swatch-name" data-en="ciano" data-pt="ciano">ciano</span></li>
+        <li class="swatch"><span class="swatch-chip" aria-hidden="true"></span><span class="swatch-name" data-en="verde" data-pt="verde">verde</span></li>
+        <li class="swatch"><span class="swatch-chip" aria-hidden="true"></span><span class="swatch-name" data-en="esmeralda" data-pt="esmeralda">esmeralda</span></li>
+        <li class="swatch"><span class="swatch-chip" aria-hidden="true"></span><span class="swatch-name" data-en="laranja" data-pt="laranja">laranja</span></li>
+        <li class="swatch"><span class="swatch-chip" aria-hidden="true"></span><span class="swatch-name" data-en="rosa" data-pt="rosa">rosa</span></li>
+        <li class="swatch"><span class="swatch-chip" aria-hidden="true"></span><span class="swatch-name" data-en="vermelho" data-pt="vermelho">vermelho</span></li>
+        <li class="swatch"><span class="swatch-chip" aria-hidden="true"></span><span class="swatch-name" data-en="magenta" data-pt="magenta">magenta</span></li>
+        <li class="swatch"><span class="swatch-chip" aria-hidden="true"></span><span class="swatch-name" data-en="dourado" data-pt="dourado">dourado</span></li>
+        <li class="swatch"><span class="swatch-chip" aria-hidden="true"></span><span class="swatch-name" data-en="grafite" data-pt="grafite">grafite</span></li>
+        <li class="swatch is-custom"><span class="swatch-chip" aria-hidden="true"></span><span class="swatch-name" data-en="custom 1" data-pt="personalizado 1">custom 1</span></li>
+        <li class="swatch is-custom"><span class="swatch-chip" aria-hidden="true"></span><span class="swatch-name" data-en="custom 2" data-pt="personalizado 2">custom 2</span></li>
+        <li class="swatch is-custom"><span class="swatch-chip" aria-hidden="true"></span><span class="swatch-name" data-en="custom 3" data-pt="personalizado 3">custom 3</span></li>
+      </ul>
+      <p class="probe-note" data-en="Every palette passes WCAG AA on its own background and text roles stay above 7:1 (core/agent/theme.test.mjs). If the terminal does not announce truecolor, the palette degrades to ANSI-256 rather than silently doing nothing." data-pt="Toda paleta passa WCAG AA sobre o próprio fundo e os papéis de texto ficam acima de 7:1 (core/agent/theme.test.mjs). Se o terminal não anuncia truecolor, a paleta degrada para ANSI-256 em vez de não fazer nada em silêncio.">Every palette passes WCAG AA on its own background and text roles stay above 7:1 (core/agent/theme.test.mjs). If the terminal does not announce truecolor, the palette degrades to ANSI-256 rather than silently doing nothing.</p>
+    </div>
+  </section>
+
+  <section class="section reveal" id="keyboard" aria-labelledby="keyboardTitle" data-source="README.md and docs/produto.md §4.4">
+    <div class="wrap">
+      <h2 id="keyboardTitle" data-en="Keyboard" data-pt="Atalhos">Keyboard</h2>
+      <p class="section-intro" data-en="While the agent works you can keep typing. Enter queues the message and it is sent when the turn finishes." data-pt="Enquanto o agente trabalha você continua digitando. Enter enfileira a mensagem e ela é enviada quando o turno termina.">While the agent works you can keep typing. Enter queues the message and it is sent when the turn finishes.</p>
+      <div class="table-scroll">
+        <table class="command-table is-narrow">
+          <caption class="visually-hidden" data-en="Keyboard shortcuts" data-pt="Atalhos de teclado">Keyboard shortcuts</caption>
+          <thead><tr>
+            <th scope="col" data-en="Key" data-pt="Tecla">Key</th>
+            <th scope="col" data-en="Action" data-pt="Ação">Action</th>
+          </tr></thead>
+          <tbody>
+            <tr><th scope="row"><code>Ctrl+O</code></th><td data-en="Status panel." data-pt="Painel de status.">Status panel.</td></tr>
+            <tr><th scope="row"><code>Ctrl+K</code></th><td data-en="Sessions, with type-to-filter and a preview of the first message." data-pt="Sessões, com filtro por digitação e prévia da primeira mensagem.">Sessions, with type-to-filter and a preview of the first message.</td></tr>
+            <tr><th scope="row"><code>Ctrl+P</code></th><td data-en="Activity list: shells and subagents." data-pt="Lista de atividade: shells e subagentes.">Activity list: shells and subagents.</td></tr>
+            <tr><th scope="row"><code>Ctrl+T</code></th><td data-en="Interface task list." data-pt="Lista de tarefas da interface.">Interface task list.</td></tr>
+            <tr><th scope="row"><code>Ctrl+,</code></th><td data-en="Settings editor, including language." data-pt="Editor de configuração, incluindo idioma.">Settings editor, including language.</td></tr>
+            <tr><th scope="row"><code>Alt+T</code></th><td data-en="Show or hide reasoning." data-pt="Mostrar ou ocultar o raciocínio.">Show or hide reasoning.</td></tr>
+            <tr><th scope="row"><code>Ctrl+C</code></th><td data-en="Cancel the turn; with text on the line, clear the line." data-pt="Cancelar o turno; com texto na linha, limpar a linha.">Cancel the turn; with text on the line, clear the line.</td></tr>
+            <tr><th scope="row"><code>Enter</code></th><td data-en="Queue the message while the agent works." data-pt="Enfileirar a mensagem enquanto o agente trabalha.">Queue the message while the agent works.</td></tr>
+            <tr><th scope="row"><code>!cmd</code></th><td data-en="Run a shell command directly in the workspace, without going through the model." data-pt="Executar um comando de shell direto no workspace, sem passar pelo modelo.">Run a shell command directly in the workspace, without going through the model.</td></tr>
+            <tr><th scope="row"><code>@file</code></th><td data-en="Inject a file into the prompt as context." data-pt="Injetar um arquivo no prompt como contexto.">Inject a file into the prompt as context.</td></tr>
+            <tr><th scope="row"><code>q</code></th><td data-en="Quit." data-pt="Sair.">Quit.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="hooks" aria-labelledby="hooksTitle" data-source="docs/estado.md §2 and docs/produto.md">
+    <div class="wrap">
+      <h2 id="hooksTitle" data-en="Hooks &amp; Code Mode" data-pt="Hooks e Code Mode">Hooks &amp; Code Mode</h2>
+      <p class="section-intro" data-en="Two opt-in layers sit between the harness and the work: lifecycle hooks that observe a turn, and a code mode that replaces a large tool catalog with one call." data-pt="Duas camadas opcionais ficam entre o harness e o trabalho: hooks de ciclo de vida que observam um turno, e um code mode que substitui um catálogo grande de tools por uma chamada.">Two opt-in layers sit between the harness and the work: lifecycle hooks that observe a turn, and a code mode that replaces a large tool catalog with one call.</p>
+
+      <h3 class="subhead" data-en="Hooks" data-pt="Hooks">Hooks</h3>
+      <p data-en="Workspaces declare lifecycle hooks in .pi/hooks.json, workspace-local and never your personal agent config. /hooks shows the configuration and the last results." data-pt="Workspaces declaram hooks de ciclo de vida em .pi/hooks.json, local ao workspace e nunca na sua configuração pessoal de agente. /hooks mostra a configuração e os últimos resultados.">Workspaces declare lifecycle hooks in .pi/hooks.json, workspace-local and never your personal agent config. /hooks shows the configuration and the last results.</p>
+      <ul class="guarantee-map">
+        <li><code>turn_start</code></li>
+        <li><code>turn_end</code></li>
+        <li><code>tool_start</code></li>
+        <li><code>tool_result</code></li>
+        <li><code>error</code></li>
+        <li><code>compact</code></li>
+      </ul>
+      <ul class="probe-list">
+        <li><span data-en="stdin" data-pt="stdin">stdin</span><span data-en="Each hook receives the event as JSON." data-pt="Cada hook recebe o evento como JSON.">Each hook receives the event as JSON.</span></li>
+        <li><span data-en="shell" data-pt="shell">shell</span><span data-en="Never called. Hooks run without one." data-pt="Nunca chamado. Hooks rodam sem um.">Never called. Hooks run without one.</span></li>
+        <li><span data-en="timeout" data-pt="timeout">timeout</span><span data-en="Every hook has one, so a slow hook is stopped." data-pt="Todo hook tem um, então um hook lento é interrompido.">Every hook has one, so a slow hook is stopped.</span></li>
+        <li><span data-en="environment" data-pt="ambiente">environment</span><span data-en="Minimal, by design." data-pt="Mínimo, por desenho.">Minimal, by design.</span></li>
+        <li><span data-en="failure" data-pt="falha">failure</span><span data-en="Recorded, never fatal to the turn." data-pt="Registrada, nunca fatal para o turno.">Recorded, never fatal to the turn.</span></li>
+      </ul>
+
+      <h3 class="subhead" data-en="Code Mode" data-pt="Code Mode">Code Mode</h3>
+      <p data-en="In a workspace with many MCP servers the tool catalog can flood the context. Opt-in code mode runs a short JavaScript program in a restricted node:vm context whose only effect is tools.call(name, args)." data-pt="Em um workspace com muitos servidores MCP o catálogo de tools pode inundar o contexto. O code mode opcional roda um programa curto em JavaScript num contexto node:vm restrito cujo único efeito é tools.call(name, args).">In a workspace with many MCP servers the tool catalog can flood the context. Opt-in code mode runs a short JavaScript program in a restricted node:vm context whose only effect is tools.call(name, args).</p>
+      <ul class="probe-list">
+        <li><span data-en="node:vm" data-pt="node:vm">node:vm</span><span data-en="A restricted context, not the main one." data-pt="Um contexto restrito, não o principal.">A restricted context, not the main one.</span></li>
+        <li><span data-en="tools.call" data-pt="tools.call">tools.call</span><span data-en="The only way to reach a tool." data-pt="A única forma de alcançar uma tool.">The only way to reach a tool.</span></li>
+        <li><span data-en="blocked" data-pt="bloqueados">blocked</span><span data-en="No process, require, fetch, eval or Function." data-pt="Sem process, require, fetch, eval ou Function.">No process, require, fetch, eval or Function.</span></li>
+        <li><span data-en="limits" data-pt="limites">limits</span><span data-en="Allowlist, call limit, deadline and output cap." data-pt="Allowlist, limite de chamadas, prazo e teto de saída.">Allowlist, call limit, deadline and output cap.</span></li>
+      </ul>
+      <p class="probe-note" data-en="The gateway is opt-in and registered locally by the user. It discovers servers and tools from the local config at runtime, so no server name, command or credential lives in the repository." data-pt="O gateway é opcional e registrado localmente pelo usuário. Descobre servidores e tools da configuração local em tempo de execução, então nenhum nome de servidor, comando ou credencial vive no repositório.">The gateway is opt-in and registered locally by the user. It discovers servers and tools from the local config at runtime, so no server name, command or credential lives in the repository.</p>
+    </div>
+  </section>
+
+  <section class="section reveal" id="commands" aria-labelledby="commandsTitle">
+    <div class="wrap">
+      <h2 id="commandsTitle" data-en="First commands" data-pt="Primeiros comandos">First commands</h2>
+      <p class="section-intro" data-en="Five commands take a session from launch to a configured provider." data-pt="Cinco comandos levam uma sessão da abertura a um provider configurado.">Five commands take a session from launch to a configured provider.</p>
+      <div class="table-scroll">
+        <table class="command-table">
+          <caption class="visually-hidden" data-en="First commands" data-pt="Primeiros comandos">First commands</caption>
+          <thead><tr>
+            <th scope="col" data-en="Command" data-pt="Comando">Command</th>
+            <th scope="col" data-en="What it does" data-pt="O que faz">What it does</th>
+          </tr></thead>
+          <tbody>
+            <tr><th scope="row"><code>npm run cli</code></th><td data-en="Open the CLI." data-pt="Abrir a CLI.">Open the CLI.</td></tr>
+            <tr><th scope="row"><code>/providers discover &lt;url&gt;</code></th><td data-en="Probe an OpenAI-compatible endpoint." data-pt="Sondar um endpoint compatível com OpenAI.">Probe an OpenAI-compatible endpoint.</td></tr>
+            <tr><th scope="row"><code>node scripts/providers-setup.mjs</code></th><td data-en="Guided provider setup." data-pt="Configuração guiada de provider.">Guided provider setup.</td></tr>
+            <tr><th scope="row"><code>/verbosity [level]</code></th><td data-en="Choose what a turn shows." data-pt="Escolher o que um turno mostra.">Choose what a turn shows.</td></tr>
+            <tr><th scope="row"><code>/language [en|pt]</code></th><td data-en="Switch the interface language." data-pt="Trocar o idioma da interface.">Switch the interface language.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="command-note" data-en="Every launch opens a new session. Resume with --resume &lt;id&gt; or /resume." data-pt="Cada abertura cria uma sessão nova. Retome com --resume &lt;id&gt; ou /resume.">Every launch opens a new session. Resume with --resume &lt;id&gt; or /resume.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer reveal">
+  <div class="wrap">
+    <p class="credit" data-en="Created by Kelvin Oliveira" data-pt="Criado por Kelvin Oliveira">Created by Kelvin Oliveira</p>
+    <ul>
+      <li><a href="https://github.com/KelvinOliveiraCode/SelfEvoPI" data-en="Project repository" data-pt="Repositório do projeto">Project repository</a></li>
+      <li><a href="https://kelvinoliveiracode.github.io/portfolio/" data-en="Kelvin Oliveira portfolio" data-pt="Portfólio de Kelvin Oliveira">Kelvin Oliveira portfolio</a></li>
+      <li><a href="https://github.com/KelvinOliveiraCode" data-en="Kelvin Oliveira on GitHub" data-pt="Kelvin Oliveira no GitHub">Kelvin Oliveira on GitHub</a></li>
+    </ul>
+  </div>
+</footer>
+
+<button type="button" class="to-top" id="toTopButton" data-en-aria="Back to top" data-pt-aria="Voltar ao topo" aria-label="Back to top">
+  <span aria-hidden="true">↑</span>
+</button>
+
+<dialog id="downloadDialog" aria-labelledby="dialogTitle" aria-describedby="dialogDesc">
+  <h2 id="dialogTitle" tabindex="-1" data-en="The CLI binary is not published yet" data-pt="O binário da CLI ainda não foi publicado">The CLI binary is not published yet</h2>
+  <p id="dialogDesc" data-en="The repository is the current path. Clone it, run npm run verify, then start the CLI with npm run cli. The binary will appear here when it exists." data-pt="O repositório é o caminho atual. Clone, rode npm run verify e inicie a CLI com npm run cli. O binário aparecerá aqui quando existir.">The repository is the current path. Clone it, run npm run verify, then start the CLI with npm run cli. The binary will appear here when it exists.</p>
+  <div class="dialog-actions">
+    <a href="https://github.com/KelvinOliveiraCode/SelfEvoPI" data-en="Open the repository" data-pt="Abrir o repositório">Open the repository</a>
+    <button type="button" id="closeDialog" data-en="Close" data-pt="Fechar">Close</button>
+  </div>
+</dialog>
+
+<script src="script.js"></script>
+
+
+</body></html>
