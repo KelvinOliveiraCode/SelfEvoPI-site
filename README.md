@@ -12,7 +12,7 @@ python -m http.server 8080
 
 Depois abra `http://localhost:8080`.
 
-A entrada tem uma tela de carregamento com progresso real de imagens, uma recepção com o nome à esquerda e uma cena abstrata à direita, e a página de produto. Ao rolar, o site percorre as seis etapas do ciclo do SelfEvoPI e a interface evolui em preto e branco.
+A entrada tem uma tela de carregamento com progresso real de imagens, uma recepção com o nome à esquerda e uma cena abstrata à direita, e a página de produto. Ao rolar, o site percorre as seis etapas do ciclo do SelfEvoPI e a interface evolui em preto e branco. A seção de equipes, eventos e memória cobre a versão 2.0.0.
 
 ## Verificar
 
@@ -35,4 +35,4 @@ A entrada tem uma tela de carregamento com progresso real de imagens, uma recep�
 
 ## Fonte dos números
 
-`docs/estado.md` versão 1.3.0, 22 de novembro de 2026, e `docs/produto.md`, no repositório em `C:\Users\Kelvin\Desktop\SelfEvoPI`. O repositório do projeto não foi modificado.
+`docs/estado.md` versão 2.0.0 e `docs/produto.md`, no repositório em `C:\Users\Kelvin\Desktop\SelfEvoPI`. O número de testes foi medido em 23 de novembro de 2026. O repositório do projeto não foi modificado.

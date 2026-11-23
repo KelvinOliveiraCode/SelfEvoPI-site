@@ -6,7 +6,13 @@ Classificação: **verificada** quando reproduzida em fonte primária; **inferid
 
 | Afirmação | Classe | Fonte |
 |:--|:--|:--|
-| 1044 testes, 1043 passam, 1 skip | verificada | `docs/estado.md` §2, 22 Nov 2026, `npm test` |
+| 1303 testes, 1296 passam, 7 pulados | verificada | `npm test` na árvore 2.0.0, 23 Nov 2026 |
+| Equipes persistentes com quadro e passo determinístico | verificada | `core/agent/team.mjs` e `core/agent/team.test.mjs` |
+| Barramento de eventos com cursor persistido | verificada | `core/forge/events.mjs` e `core/forge/events.test.mjs` |
+| Memória automática com redação de segredo | verificada | `core/agent/memory-auto.mjs` e `core/agent/memory-auto.test.mjs` |
+| Célula persistente restrita com limites de chamada e saída | verificada | `core/agent/cells.mjs` e `core/agent/cells.test.mjs` |
+| Definições de agente e permissões ordenadas | verificada | `core/agent/agent-defs.mjs` e `core/agent/agent-defs.test.mjs` |
+| Auditoria de refutação com juiz externo na CLI | verificada | `core/agent/refutation-audit.mjs` e `core/agent/refutation-audit.test.mjs` |
 | `npm run verify` com exit 0 e 33 de 33 URLs 200 | verificada | `docs/estado.md` §2, 22 Nov 2026 |
 | Cold start médio de ~82 ms em 7 execuções | verificada | `docs/estado.md` §2, cronômetro sobre `node apps/cli.mjs --version` |
 | Acréscimo de +499 tokens sobre teto de 1500 | verificada | `docs/estado.md` §2, `node scripts/measure-selfevopi-overhead.mjs --runs 3` |
@@ -61,13 +67,15 @@ Classificação: **verificada** quando reproduzida em fonte primária; **inferid
 | Tema claro/escuro alterna `data-theme` e persiste em `localStorage` | verificada | `script.js`, seletor `:root[data-theme="light"]` em `styles.css` |
 | Service worker faz cache-first de assets estáticos | verificada | `sw.js`, registrado em `script.js` |
 | Manifest PWA instalável com ícone e tema | verificada | `site.webmanifest`, `<link rel="manifest">` em `index.html` |
-| Seções install, cli-surface, themes, keyboard e hooks | verificada | `index.html` linhas 383–528, `data-source` em cada seção |
+| Seções install, cli-surface, themes, keyboard e hooks | verificada | `index.html`, `data-source` em cada seção |
+| Seção de equipes, eventos e memória na página | verificada | `index.html`, bloco `#teams` |
+| Versão 2.0.0 nos números exibidos | verificada | `package.json` e `npm test`, 23 Nov 2026 |
 | OG image SVG 1200×630 com wordmark e data | verificada | `assets/og.svg`, `<meta property="og:image">` em `index.html` |
 
 ## Premissas
 
 - Nenhuma cor nova entrou; a evolução é estrutural.
-- Números visíveis vêm apenas de `docs/estado.md`, com comando e data.
+- Números visíveis vêm de `docs/estado.md` ou de medição direta, sempre com comando e data.
 - Citações aparecem em cada nota de harness; a lista completa fica neste arquivo.
 - O dado de ERNIE 5.5 foi removido por ser detalhe de desenvolvimento, não mérito do produto.
 

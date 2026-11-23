@@ -1,4 +1,4 @@
-var CACHE = "selfevopi-v1";
+var CACHE = "selfevopi-v2";
 
 var ASSETS = [
   "./",

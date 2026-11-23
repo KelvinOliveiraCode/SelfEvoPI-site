@@ -3,11 +3,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title data-en="SelfEvoPI, a self-evolving coding-agent harness" data-pt="SelfEvoPI, um harness de agente de código auto-evolutivo">SelfEvoPI, a self-evolving coding-agent harness</title>
-<meta name="description" data-en="SelfEvoPI is a lightweight, engine-agnostic coding-agent harness. A multi-provider router, a regression gate, persistent memory, a Windows sandbox, and a core that builds the capability it is missing." data-pt="SelfEvoPI é um harness de agente de código leve e agnóstico. Roteador multi-provider, gate de regressão, memória persistente, sandbox Windows e um núcleo que constrói a capacidade que falta.">
+<meta name="description" data-en="SelfEvoPI is a lightweight, engine-agnostic coding-agent harness. A multi-provider router, a regression gate, persistent memory and teams, a local event bus, a Windows sandbox, and a core that builds the capability it is missing." data-pt="SelfEvoPI é um harness de agente de código leve e agnóstico. Roteador multi-provider, gate de regressão, memória e equipes persistentes, barramento de eventos local, sandbox Windows e um núcleo que constrói a capacidade que falta.">
 <meta name="theme-color" content="#000000">
 <meta name="color-scheme" content="dark light">
 <meta property="og:title" data-en="SelfEvoPI, a self-evolving coding-agent harness" data-pt="SelfEvoPI, um harness de agente de código auto-evolutivo" content="SelfEvoPI, a self-evolving coding-agent harness">
-<meta property="og:description" data-en="One CLI. A multi-provider router, a regression gate, persistent memory, and an evolutionary core." data-pt="Uma CLI. Roteador multi-provider, gate de regressão, memória persistente e núcleo evolutivo." content="One CLI. A multi-provider router, a regression gate, persistent memory, and an evolutionary core.">
+<meta property="og:description" data-en="One CLI. A multi-provider router, a regression gate, persistent teams, automatic memory, and an evolutionary core." data-pt="Uma CLI. Roteador multi-provider, gate de regressão, equipes persistentes, memória automática e núcleo evolutivo." content="One CLI. A multi-provider router, a regression gate, persistent teams, automatic memory, and an evolutionary core.">
 <meta property="og:image" content="assets/og.svg">
 <meta property="og:image:type" content="image/svg+xml">
 <meta property="og:image:width" content="1200">
@@ -74,6 +74,7 @@
       <a href="#evidence" data-en="Evidence" data-pt="Evidência">Evidence</a>
       <a href="#limits" data-en="Limits" data-pt="Limites">Limits</a>
       <a href="#commands" data-en="Commands" data-pt="Comandos">Commands</a>
+      <a href="#teams" data-en="Teams" data-pt="Equipes">Teams</a>
     </nav>
     <button type="button" class="lang-button nav-download" id="navDownloadButton" data-download-open data-en-aria="Download the CLI" data-pt-aria="Baixar a CLI" aria-label="Download the CLI">
       <span class="nav-download-label" data-en="Download" data-pt="Baixar">Download</span>
@@ -94,7 +95,7 @@
     <div class="wrap opening-grid">
       <div class="opening-copy">
         <h2 id="openingTitle" data-en="A harness that measures itself" data-pt="Um harness que se mede">A harness that measures itself</h2>
-        <p class="lead" data-en="One CLI. A multi-provider router, a regression gate, persistent memory, a Windows sandbox, and a core that writes the artifact a task is missing." data-pt="Uma CLI. Roteador multi-provider, gate de regressão, memória persistente, sandbox Windows e um núcleo que escreve o artefato que falta à tarefa.">One CLI. A multi-provider router, a regression gate, persistent memory, a Windows sandbox, and a core that writes the artifact a task is missing.</p>
+        <p class="lead" data-en="One CLI. A multi-provider router, a regression gate, persistent memory and teams, a local event bus, and a core that writes the artifact a task is missing." data-pt="Uma CLI. Roteador multi-provider, gate de regressão, memória e equipes persistentes, barramento de eventos local e um núcleo que escreve o artefato que falta à tarefa.">One CLI. A multi-provider router, a regression gate, persistent memory and teams, a local event bus, and a core that writes the artifact a task is missing.</p>
         <button type="button" class="primary" id="downloadButton" data-download-open data-en="Download the CLI" data-pt="Baixar a CLI">Download the CLI</button>
       </div>
     </div>
@@ -328,14 +329,15 @@
       <p class="section-intro" data-en="Every number has a command and a date. These are measurements from one day, not a performance guarantee." data-pt="Todo número tem comando e data. São medições de um dia, não garantia de desempenho.">Every number has a command and a date. These are measurements from one day, not a performance guarantee.</p>
       <div class="table-scroll">
         <table class="evidence-table">
-          <caption class="visually-hidden" data-en="Measured evidence, 22 November 2026" data-pt="Evidência medida, 22 de novembro de 2026">Measured evidence, 22 November 2026</caption>
+          <caption class="visually-hidden" data-en="Measured evidence, 23 November 2026" data-pt="Evidência medida, 23 de novembro de 2026">Measured evidence, 23 November 2026</caption>
           <thead><tr>
             <th scope="col" data-en="Metric" data-pt="Métrica">Metric</th>
             <th scope="col" data-en="Value" data-pt="Valor">Value</th>
             <th scope="col" data-en="Command" data-pt="Comando">Command</th>
                       </tr></thead>
           <tbody>
-            <tr><td data-label="Metric" data-en="Unit tests" data-pt="Testes unitários">Unit tests</td><td data-label="Value" data-en="1044 total, 1043 pass, 1 skip" data-pt="1044 no total, 1043 passam, 1 skip">1044 total, 1043 pass, 1 skip</td><td data-label="Command" class="cmd">npm test</td></tr>
+            <tr><td data-label="Metric" data-en="Unit tests" data-pt="Testes unitários">Unit tests</td><td data-label="Value" data-en="1303 total, 1296 pass, 7 skip" data-pt="1303 no total, 1296 passam, 7 skip">1303 total, 1296 pass, 7 skip</td><td data-label="Command" class="cmd">npm test</td></tr>
+            <tr><td data-label="Metric" data-en="Team and event tests" data-pt="Testes de equipes e eventos">Team and event tests</td><td data-label="Value" data-en="64 tests pass" data-pt="64 testes passam">64 tests pass</td><td data-label="Command" class="cmd">node --test core/agent/team.test.mjs core/forge/events.test.mjs</td></tr>
             <tr><td data-label="Metric" data-en="Full verification" data-pt="Verificação completa">Full verification</td><td data-label="Value" data-en="exit 0, 33 of 33 URLs return 200" data-pt="exit 0, 33 de 33 URLs respondem 200">exit 0, 33 of 33 URLs return 200</td><td data-label="Command" class="cmd">npm run verify</td></tr>
             <tr><td data-label="Metric" data-en="Cold start" data-pt="Partida a frio">Cold start</td><td data-label="Value" data-en="~82 ms mean, 7 runs" data-pt="média de ~82 ms, 7 execuções">~82 ms mean, 7 runs</td><td data-label="Command" class="cmd">timed node apps/cli.mjs --version</td></tr>
             <tr><td data-label="Metric" data-en="Prompt overhead" data-pt="Acréscimo de prompt">Prompt overhead</td><td data-label="Value" data-en="+499 tokens over a 1500 token ceiling" data-pt="+499 tokens sobre teto de 1500 tokens">+499 tokens over a 1500 token ceiling</td><td data-label="Command" class="cmd">node scripts/measure-selfevopi-overhead.mjs --runs 3</td></tr>
@@ -373,9 +375,11 @@
           <h3 data-en="What does not exist" data-pt="O que não existe">What does not exist</h3>
           <ul class="limit-nodes">
             <li><span class="limit-dot is-open" aria-hidden="true"></span><span data-en="Lexical skills, no embeddings" data-pt="Skills lexicais, sem embeddings">Lexical skills, no embeddings</span></li>
-            <li><span class="limit-dot is-open" aria-hidden="true"></span><span data-en="Clock and ledger trigger, no external events" data-pt="Relógio e ledger disparam, sem eventos externos">Clock and ledger trigger, no external events</span></li>
+            <li><span class="limit-dot is-open" aria-hidden="true"></span><span data-en="Clock and ledger trigger, no external sources" data-pt="Relógio e ledger disparam, sem fontes externas">Clock and ledger trigger, no external sources</span></li>
             <li><span class="limit-dot is-open" aria-hidden="true"></span><span data-en="Four models end calls without text" data-pt="Quatro modelos terminam chamadas sem texto">Four models end calls without text</span></li>
             <li><span class="limit-dot is-open" aria-hidden="true"></span><span data-en="No /btw, custom keybindings, or title progress bar" data-pt="Sem /btw, keybindings customizáveis ou barra de progresso no título">No /btw, custom keybindings, or title progress bar</span></li>
+            <li><span class="limit-dot is-open" aria-hidden="true"></span><span data-en="Cells use internal tools, no full gateway wiring" data-pt="Células usam ferramentas internas, sem ligação completa com o gateway">Cells use internal tools, no full gateway wiring</span></li>
+            <li><span class="limit-dot is-open" aria-hidden="true"></span><span data-en="Real LSP server and real DAP process remain unproven" data-pt="Servidor LSP real e processo DAP real permanecem sem prova">Real LSP server and real DAP process remain unproven</span></li>
           </ul>
         </div>
       </div>
@@ -397,7 +401,7 @@ npm run cli</code></pre>
         <div class="edge-item"><strong data-en="Git 2.55 or newer" data-pt="Git 2.55 ou mais novo">Git 2.55 or newer</strong><span data-en="With core.longpaths set to true." data-pt="Com core.longpaths definido como true.">With core.longpaths set to true.</span></div>
         <div class="edge-item"><strong data-en="The engine CLI" data-pt="A CLI do motor">The engine CLI</strong><span data-en="Installed separately. SelfEvoPI speaks to it over RPC and does not fork it." data-pt="Instalada à parte. O SelfEvoPI fala com ela por RPC e não a bifurca.">Installed separately. SelfEvoPI speaks to it over RPC and does not fork it.</span></div>
       </div>
-      <p class="probe-note" data-en="npm run verify is what CI runs. It is green on this checkout: exit 0 and 33 of 33 source URLs returning 200,." data-pt="npm run verify é o que o CI roda. Está verde neste checkout: exit 0 e 33 de 33 URLs de origem respondendo 200,.">npm run verify is what CI runs. It is green on this checkout: exit 0 and 33 of 33 source URLs returning 200,.</p>
+      <p class="probe-note" data-en="npm run verify is what CI runs. It is green on this checkout: exit 0 and 33 of 33 source URLs returning 200." data-pt="npm run verify é o que o CI roda. Está verde neste checkout: exit 0 e 33 de 33 URLs de origem respondendo 200.">npm run verify is what CI runs. It is green on this checkout: exit 0 and 33 of 33 source URLs returning 200.</p>
     </div>
   </section>
 
@@ -419,6 +423,7 @@ npm run cli</code></pre>
       </ul>
       <div class="diagram-wrap"><img src="assets/diagram-session-states.svg" alt="Session states: launch → active → resume/fork/compacted" width="900" height="300" loading="lazy"></div>
       <p class="probe-note" data-en="Permission and approver are separate axes from mode, and the status line shows them separately." data-pt="Permissão e aprovador são eixos separados do modo, e a barra de status os mostra separadamente.">Permission and approver are separate axes from mode, and the status line shows them separately.</p>
+       <p class="probe-note" data-en="In prose, ultrathink raises effort, chillax lowers it, and orchestrate or workflowz set the task role. No code or path changes." data-pt="Em prosa, ultrathink aumenta o esforço, chillax reduz, e orchestrate ou workflowz definem o papel da tarefa. Nenhum código ou caminho muda.">In prose, ultrathink raises effort, chillax lowers it, and orchestrate or workflowz set the task role. No code or path changes.</p>
 
       <h3 class="subhead" data-en="Commands by group" data-pt="Comandos por grupo">Commands by group</h3>
       <div class="table-scroll">
@@ -434,9 +439,25 @@ npm run cli</code></pre>
             <tr><th scope="row" data-en="Context" data-pt="Contexto">Context</th><td><code>/cost</code> <code>/status</code> <code>/context</code> <code>/history</code> <code>/verbosity</code></td></tr>
             <tr><th scope="row" data-en="Provider" data-pt="Provedor">Provider</th><td><code>/providers</code> <code>/model</code> <code>/effort</code> <code>/theme</code> <code>/language</code> <code>/reload</code></td></tr>
             <tr><th scope="row" data-en="Orchestration" data-pt="Orquestração">Orchestration</th><td><code>/swarm</code> <code>/subagent</code> <code>/worktree</code> <code>/mcp</code> <code>/plugins</code></td></tr>
+            <tr><th scope="row" data-en="Teams and events" data-pt="Equipes e eventos">Teams and events</th><td><code>/agents</code> <code>/team</code> <code>/bus</code> <code>/cell</code></td></tr>
             <tr><th scope="row" data-en="Editing" data-pt="Edição">Editing</th><td><code>/paste</code> <code>/attach</code> <code>/images</code> <code>/init</code> <code>/import</code> <code>/hooks</code> <code>/security-log</code></td></tr>
           </tbody>
         </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="teams" aria-labelledby="teamsTitle" data-source="docs/estado.md and docs/produto.md">
+    <div class="wrap">
+      <h2 id="teamsTitle" data-en="Teams, events and memory" data-pt="Equipes, eventos e memória">Teams, events and memory</h2>
+      <p class="section-intro" data-en="Version 2.0.0 keeps state between turns without adding a dependency." data-pt="A versão 2.0.0 mantém estado entre turnos sem adicionar dependência.">Version 2.0.0 keeps state between turns without adding a dependency.</p>
+      <div class="edge-list">
+        <div class="edge-item"><strong data-en="Persistent teams" data-pt="Equipes persistentes">Persistent teams</strong><span data-en="A board, messages and a deterministic step survive a restart. Writes are atomic." data-pt="Quadro, mensagens e um passo determinístico sobrevivem a reinício. As escritas são atômicas.">A board, messages and a deterministic step survive a restart. Writes are atomic.</span></div>
+        <div class="edge-item"><strong data-en="Local event bus" data-pt="Barramento de eventos local">Local event bus</strong><span data-en="Events are deduplicated and keep a saved cursor, so a restart does not replay them." data-pt="Os eventos são deduplicados e guardam um cursor, então um reinício não os repete.">Events are deduplicated and keep a saved cursor, so a restart does not replay them.</span></div>
+        <div class="edge-item"><strong data-en="Automatic memory" data-pt="Memória automática">Automatic memory</strong><span data-en="Facts are redacted before storage and recalled by term overlap." data-pt="Os fatos são redigidos antes de gravar e recuperados por sobreposição de termos.">Facts are redacted before storage and recalled by term overlap.</span></div>
+        <div class="edge-item"><strong data-en="Persistent cells" data-pt="Células persistentes">Persistent cells</strong><span data-en="A restricted runtime keeps state between calls. Calls and output have fixed limits." data-pt="Um interpretador restrito mantém estado entre chamadas. Chamadas e saída têm limites fixos.">A restricted runtime keeps state between calls. Calls and output have fixed limits.</span></div>
+        <div class="edge-item"><strong data-en="Agent definitions" data-pt="Definições de agente">Agent definitions</strong><span data-en="Frontmatter files define modes and ordered permission rules." data-pt="Arquivos com frontmatter definem modos e regras de permissão ordenadas.">Frontmatter files define modes and ordered permission rules.</span></div>
+        <div class="edge-item"><strong data-en="Refutation audit" data-pt="Auditoria de refutação">Refutation audit</strong><span data-en="A claim is tested against the running CLI before it stays in the foundation document." data-pt="Uma afirmação é testada na CLI em execução antes de ficar no documento fundacional.">A claim is tested against the running CLI before it stays in the foundation document.</span></div>
       </div>
     </div>
   </section>
