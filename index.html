@@ -78,10 +78,10 @@
       <a href="#teams" data-en="Teams" data-pt="Equipes">Teams</a>
       <a href="#faq" data-en="FAQ" data-pt="FAQ">FAQ</a>
     </nav>
-    <button type="button" class="lang-button nav-download" id="navDownloadButton" data-download-open data-en-aria="Download the CLI" data-pt-aria="Baixar a CLI" aria-label="Download the CLI">
+    <a class="lang-button nav-download" id="navDownloadButton" href="https://github.com/KelvinOliveiraCode/SelfEvoPI/releases/download/v2.0.0/SelfEvoPI-2.0.0.zip" data-en-aria="Download the CLI" data-pt-aria="Baixar a CLI" aria-label="Download the CLI">
       <span class="nav-download-label" data-en="Download" data-pt="Baixar">Download</span>
       <span class="nav-download-icon" aria-hidden="true">↓</span>
-    </button>
+    </a>
     <button type="button" class="lang-button" id="langButton" data-en-aria="Switch to Portuguese" data-pt-aria="Mudar para inglês" aria-label="Switch to Portuguese">
       <span data-en="PT" data-pt="EN">PT</span>
     </button>
@@ -98,7 +98,7 @@
       <div class="opening-copy">
         <h2 id="openingTitle" data-en="A harness that measures itself" data-pt="Um harness que se mede">A harness that measures itself</h2>
         <p class="lead" data-en="One CLI. A multi-provider router, a regression gate, persistent memory and teams, a local event bus, and a core that writes the artifact a task is missing." data-pt="Uma CLI. Roteador multi-provider, gate de regressão, memória e equipes persistentes, barramento de eventos local e um núcleo que escreve o artefato que falta à tarefa.">One CLI. A multi-provider router, a regression gate, persistent memory and teams, a local event bus, and a core that writes the artifact a task is missing.</p>
-        <button type="button" class="primary" id="downloadButton" data-download-open data-en="Download the CLI" data-pt="Baixar a CLI">Download the CLI</button>
+        <a class="primary" id="downloadButton" href="https://github.com/KelvinOliveiraCode/SelfEvoPI/releases/download/v2.0.0/SelfEvoPI-2.0.0.zip" data-en="Download the CLI" data-pt="Baixar a CLI">Download the CLI</a>
       </div>
     </div>
     <div class="wrap track-wrap">
@@ -518,7 +518,37 @@ npm run cli</code></pre>
         <div class="edge-item"><strong data-en="Git 2.55 or newer" data-pt="Git 2.55 ou mais novo">Git 2.55 or newer</strong><span data-en="With core.longpaths set to true." data-pt="Com core.longpaths definido como true.">With core.longpaths set to true.</span></div>
         <div class="edge-item"><strong data-en="The engine CLI" data-pt="A CLI do motor">The engine CLI</strong><span data-en="Installed separately. SelfEvoPI speaks to it over RPC and does not fork it." data-pt="Instalada à parte. O SelfEvoPI fala com ela por RPC e não a bifurca.">Installed separately. SelfEvoPI speaks to it over RPC and does not fork it.</span></div>
       </div>
-      <p class="probe-note" data-en="npm run verify is what CI runs. It is green on this checkout: exit 0 and 33 of 33 source URLs returning 200." data-pt="npm run verify é o que o CI roda. Está verde neste checkout: exit 0 e 33 de 33 URLs de origem respondendo 200.">npm run verify is what CI runs. It is green on this checkout: exit 0 and 33 of 33 source URLs returning 200.</p>
+      <p class="probe-note" data-en="npm run verify runs unit tests, structural evals and source URL checks. The public release leaves out the private ledger that some development tests read." data-pt="npm run verify roda testes unitários, evals estruturais e checagem de fontes. O release público deixa fora o ledger privado que alguns testes de desenvolvimento leem.">npm run verify runs unit tests, structural evals and source URL checks. The public release leaves out the private ledger that some development tests read.</p>
+    </div>
+  </section>
+
+  <section class="section reveal" id="download" aria-labelledby="downloadTitle" data-source="release v2.0.0 and download/README.md">
+    <div class="wrap">
+      <h2 id="downloadTitle" data-en="Download and first run" data-pt="Download e primeiro uso">Download and first run</h2>
+      <p class="section-intro" data-en="The release zip carries the full CLI and SelfEvoPI.exe at its root. Extract it, open the executable, then give it one endpoint and one key." data-pt="O zip do release traz a CLI completa e o SelfEvoPI.exe na raiz. Extraia, abra o executável e dê a ele um endpoint e uma chave.">The release zip carries the full CLI and SelfEvoPI.exe at its root. Extract it, open the executable, then give it one endpoint and one key.</p>
+      <p><a class="primary" href="https://github.com/KelvinOliveiraCode/SelfEvoPI/releases/download/v2.0.0/SelfEvoPI-2.0.0.zip">Download SelfEvoPI 2.0.0</a></p>
+      <pre class="terminal"><code>extraia o zip
+SelfEvoPI.exe --version
+/providers quick https://openrouter.ai/api/v1 NOME_DA_VARIAVEL
+/model</code></pre>
+      <div class="engineering">
+        <div class="engineering-block">
+          <h4 data-en="What the executable does" data-pt="O que o executável faz">What the executable does</h4>
+          <ul class="probe-list">
+            <li><span data-en="launcher" data-pt="lançador">launcher</span><span data-en="Finds node.exe on PATH and starts apps/cli.mjs." data-pt="Acha node.exe no PATH e inicia apps/cli.mjs.">Finds node.exe on PATH and starts apps/cli.mjs.</span></li>
+            <li><span data-en="workspace" data-pt="workspace">workspace</span><span data-en="Enters the application folder so the conversation keeps its place." data-pt="Entra na pasta da aplicação para a conversa manter o lugar.">Enters the application folder so the conversation keeps its place.</span></li>
+            <li><span data-en="secrets" data-pt="segredos">secrets</span><span data-en="No key, no menu and no network call of its own." data-pt="Sem chave, sem menu e sem chamada de rede própria.">No key, no menu and no network call of its own.</span></li>
+          </ul>
+        </div>
+        <div class="engineering-block">
+          <h4 data-en="Quick provider setup" data-pt="Configuração rápida de provider">Quick provider setup</h4>
+          <ul class="probe-list">
+            <li><span data-en="inside" data-pt="dentro">inside</span><span data-en="/providers quick pulls every model from the endpoint and saves them." data-pt="/providers quick puxa todos os modelos do endpoint e os salva.">/providers quick pulls every model from the endpoint and saves them.</span></li>
+            <li><span data-en="outside" data-pt="fora">outside</span><span data-en="providers-setup --quick asks endpoint and key with the key hidden." data-pt="providers-setup --quick pergunta endpoint e chave com a chave oculta.">providers-setup --quick asks endpoint and key with the key hidden.</span></li>
+            <li><span data-en="result" data-pt="resultado">result</span><span data-en="Config lands in the user profile. /model then chooses a model." data-pt="A config vai para o perfil do usuário. /model escolhe o modelo.">Config lands in the user profile. /model then chooses a model.</span></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -751,15 +781,6 @@ npm run cli</code></pre>
 <button type="button" class="to-top" id="toTopButton" data-en-aria="Back to top" data-pt-aria="Voltar ao topo" aria-label="Back to top">
   <span aria-hidden="true">↑</span>
 </button>
-
-<dialog id="downloadDialog" aria-labelledby="dialogTitle" aria-describedby="dialogDesc">
-  <h2 id="dialogTitle" tabindex="-1" data-en="The CLI binary is not published yet" data-pt="O binário da CLI ainda não foi publicado">The CLI binary is not published yet</h2>
-  <p id="dialogDesc" data-en="The repository is the current path. Clone it, run npm run verify, then start the CLI with npm run cli. The binary will appear here when it exists." data-pt="O repositório é o caminho atual. Clone, rode npm run verify e inicie a CLI com npm run cli. O binário aparecerá aqui quando existir.">The repository is the current path. Clone it, run npm run verify, then start the CLI with npm run cli. The binary will appear here when it exists.</p>
-  <div class="dialog-actions">
-    <a href="https://github.com/KelvinOliveiraCode/SelfEvoPI" data-en="Open the repository" data-pt="Abrir o repositório">Open the repository</a>
-    <button type="button" id="closeDialog" data-en="Close" data-pt="Fechar">Close</button>
-  </div>
-</dialog>
 
 <script src="script.js"></script>
 

@@ -128,6 +128,12 @@ Sete diagramas SVG novos acompanham essas seções, no mesmo vocabulário dos an
 
 A seção `conversation` registra o comportamento da CLI que mantém estado e dica nas duas primeiras linhas abaixo do prompt, inclusive com paleta aberta. A mudança correspondente está em `apps/cli.mjs` e tem teste em `apps/cli.test.mjs`.
 
+## Download e configuração rápida
+
+O botão Baixar da navegação e da recepção deixou de abrir um diálogo de aviso e passou a linkar direto o zip do release v2.0.0. O diálogo antigo e seu código em `script.js` foram removidos. A seção `download` explica o executável, mostra os quatro comandos de começo e descreve o `/providers quick`: um endpoint e uma chave entram, todos os modelos do gateway são puxados e gravados no perfil do usuário. A chave não aparece na saída.
+
+A nota da seção Instalação deixou de prometer `npm run verify` verde no release público e passou a dizer que o ledger privado fica fora do pacote.
+
 ## PWA e OG
 
 - `site.webmanifest` com `display:standalone`, `background_color:#000`, `theme_color:#000`, ícone `selfevopi.ico`.

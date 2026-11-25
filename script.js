@@ -105,26 +105,6 @@
     });
   });
 
-  var dialog = document.getElementById("downloadDialog");
-  var dialogTriggers = Array.prototype.slice.call(document.querySelectorAll("[data-download-open]"));
-  var closeButton = document.getElementById("closeDialog");
-  var lastTrigger = null;
-  if(dialog && closeButton && dialogTriggers.length){
-    dialogTriggers.forEach(function(trigger){
-      trigger.addEventListener("click", function(){
-        lastTrigger = trigger;
-        if(typeof dialog.showModal === "function"){ dialog.showModal(); }
-        else { dialog.setAttribute("open", ""); }
-        closeButton.focus();
-      });
-    });
-    closeButton.addEventListener("click", function(){
-      if(typeof dialog.close === "function"){ dialog.close(); } else { dialog.removeAttribute("open"); lastTrigger && lastTrigger.focus(); }
-    });
-    dialog.addEventListener("close", function(){ if(lastTrigger && lastTrigger.focus){ lastTrigger.focus(); } });
-    dialog.addEventListener("click", function(e){ if(e.target === dialog){ if(typeof dialog.close === "function"){ dialog.close(); } } });
-  }
-
   var loader = document.getElementById("loader");
   var loaderFill = document.getElementById("loaderFill");
   var images = Array.prototype.slice.call(document.images);

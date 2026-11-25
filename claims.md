@@ -76,6 +76,11 @@ Classificação: **verificada** quando reproduzida em fonte primária; **inferid
 | Seção de equipes, eventos e memória na página | verificada | `index.html`, bloco `#teams` |
 | Versão 2.0.0 nos números exibidos | verificada | `package.json` e `npm test`, 23 Nov 2026 |
 | OG image SVG 1200×630 com wordmark e data | verificada | `assets/og.svg`, `<meta property="og:image">` em `index.html` |
+| Release v2.0.0 com zip de 825222 bytes e SHA256 `3bda3f04...` | verificada | API do GitHub, release `v2.0.0` do repo SelfEvoPI |
+| Executável `SelfEvoPI.exe` abre a CLI e reporta 2.0.0 | verificada | execução do zip extraído em Windows, `--version` |
+| Setup rápido puxa todos os modelos e grava a config | verificada | `apps/providers-quick.test.mjs`, gateway local com 3 modelos |
+| A chave não aparece na saída do setup | verificada | `apps/providers-quick.test.mjs`, asserção sobre stdout |
+| Seção download com link direto para o zip do release | verificada | `index.html`, `data-source` da seção |
 
 ## Premissas
 
