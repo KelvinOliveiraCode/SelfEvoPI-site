@@ -78,7 +78,6 @@ Classificação: **verificada** quando reproduzida em fonte primária; **inferid
 | OG image SVG 1200×630 com wordmark e data | verificada | `assets/og.svg`, `<meta property="og:image">` em `index.html` |
 | Release v2.0.0 com zip de 34257867 bytes e SHA256 `6dcfa611...` | verificada | API do GitHub, release `v2.0.0` do repo SelfEvoPI, download conferido |
 | O zip inclui node.exe e o executável funciona sem Node no PATH | verificada | extração do zip e execução com PATH limitado a `C:\Windows` |
-| Teste real com endpoint Kilo `https://ai-gateway.kilo.ai/api/v1` e conta k1 devolveu 464 modelos | verificada | execução de `providers-setup.mjs --quick` num arquivo temporário; fingerprint da chave `d2d92b0c`, valor nunca impresso |
 | Executável `SelfEvoPI.exe` abre a CLI e reporta 2.0.0 | verificada | execução do zip extraído em Windows, `--version` |
 | Setup rápido puxa todos os modelos e grava a config | verificada | `apps/providers-quick.test.mjs`, gateway local com 3 modelos |
 | A chave não aparece na saída do setup | verificada | `apps/providers-quick.test.mjs`, asserção sobre stdout |
