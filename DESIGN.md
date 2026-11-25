@@ -120,6 +120,14 @@ Cinco seções foram adicionadas entre `limits` e `commands`:
 - **Tema claro/escuro**: botão na nav alterna `data-theme` no `<html>`, persiste em `localStorage` sob `selfevopi-theme`, default `prefers-color-scheme`.
 - **CTA sticky**: botão "Baixar" compacto na nav dispara o mesmo dialog `#downloadDialog` que o botão da abertura.
 
+## Conteúdo adicional
+
+Seis seções novas explicam as ideias do projeto, sem introduzir números sem fonte. `principles` mostra oito regras de projeto ao redor do harness. `judge` explica que o verificador fica fora do autor e lista o que o gate pergunta e o que não pode ser editado para fazê-lo passar. `conversation` descreve o quadro do terminal, com a resposta acima da entrada e o rodapé preso imediatamente abaixo dela. `continuity` mostra os três níveis de memória e o estado de equipes e eventos que sobrevive a reinícios. `scope` separa o que está no release do que ficou de fora por decisão. `faq` responde sete perguntas com fatos já presentes em README e PROJECT.
+
+Sete diagramas SVG novos acompanham essas seções, no mesmo vocabulário dos anteriores: fundo preto, linha fina, sem setas e sem cor nova. `diagram-ownership.svg` desenha a fronteira entre motor e harness. `diagram-contract.svg` mostra as quatro entradas do contrato de uma tarefa. `diagram-sandbox-layers.svg` mostra as camadas de contenção. `diagram-memory-lifecycle.svg` mostra a promoção de fato para sessão, projeto e skills. `diagram-judge.svg` mostra o candidato, o workspace temporário, o checker e o gate. `diagram-principles.svg` dispõe as oito regras ao redor do núcleo. `diagram-terminal.svg` mostra a posição fixa do rodapé em relação à linha de entrada. Os rótulos usam `data-en` e `data-pt`, então acompanham o seletor de idioma.
+
+A seção `conversation` registra o comportamento da CLI que mantém estado e dica nas duas primeiras linhas abaixo do prompt, inclusive com paleta aberta. A mudança correspondente está em `apps/cli.mjs` e tem teste em `apps/cli.test.mjs`.
+
 ## PWA e OG
 
 - `site.webmanifest` com `display:standalone`, `background_color:#000`, `theme_color:#000`, ícone `selfevopi.ico`.

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 340" width="900" height="340" role="img" aria-labelledby="judgeTitle judgeDesc" class="dg">
+  <title id="judgeTitle" data-en="The judge sits outside the author" data-pt="O juiz fica fora do autor">The judge sits outside the author</title>
+  <desc id="judgeDesc" data-en="A candidate runs in a temporary workspace. A checker prints JSON and exits zero or one. The gate compares the run with a baseline and requires zero regressions before promotion." data-pt="Um candidato roda em workspace temporário. Um checker imprime JSON e sai zero ou um. O gate compara a execução com a baseline e exige zero regressões antes da promoção.">A candidate runs in a temporary workspace. A checker prints JSON and exits zero or one. The gate compares the run with a baseline and requires zero regressions before promotion.</desc>
+  <style>
+    .dg{--bg:#000;--fg:#fff;--muted:#787878;--font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+    .dg .bg{fill:var(--bg)}
+    .dg .ln{fill:none;stroke:var(--fg);stroke-opacity:.38;stroke-width:1}
+    .dg .dash{fill:none;stroke:var(--fg);stroke-opacity:.55;stroke-width:1;stroke-dasharray:4 4}
+    .dg .box{fill:var(--bg);stroke:var(--fg);stroke-width:1}
+    .dg .filled{fill:var(--fg)}
+    .dg .hollow{fill:var(--bg);stroke:var(--fg);stroke-width:1.5}
+    .dg text{fill:var(--fg);font-family:var(--font);font-size:14px;font-weight:500}
+    .dg .sub{fill:var(--muted);font-size:12px;font-weight:400}
+  </style>
+  <rect class="bg" width="900" height="340"/>
+  <g class="ln">
+    <line x1="170" y1="150" x2="270" y2="150"/>
+    <line x1="400" y1="150" x2="500" y2="150"/>
+    <line x1="630" y1="150" x2="720" y2="150"/>
+    <line x1="760" y1="180" x2="760" y2="230"/>
+  </g>
+  <path class="dash" d="M760 230 H480"/>
+  <rect class="box" x="40" y="120" width="130" height="60" rx="2"/>
+  <rect class="box" x="270" y="116" width="130" height="68" rx="2"/>
+  <rect class="box" x="500" y="116" width="130" height="68" rx="2"/>
+  <circle class="filled" cx="760" cy="150" r="16"/>
+  <circle class="hollow" cx="480" cy="230" r="16"/>
+  <text x="105" y="155" text-anchor="middle" data-en="candidate" data-pt="candidato">candidate</text>
+  <text x="335" y="143" text-anchor="middle" data-en="workspace" data-pt="workspace">workspace</text>
+  <text x="335" y="167" text-anchor="middle" data-en="temporary" data-pt="temporário">temporary</text>
+  <text x="565" y="143" text-anchor="middle" data-en="checker" data-pt="checker">checker</text>
+  <text x="565" y="167" text-anchor="middle" data-en="JSON, exit 0 or 1" data-pt="JSON, saída 0 ou 1">JSON, exit 0 or 1</text>
+  <text x="760" y="110" text-anchor="middle" data-en="gate" data-pt="gate">gate</text>
+  <text x="480" y="270" text-anchor="middle" data-en="revert" data-pt="reverter">revert</text>
+  <text class="sub" x="450" y="312" text-anchor="middle" data-en="baseline comparison, zero regressions, protected checks and governance" data-pt="comparação com baseline, zero regressões, checks e governança protegidos">baseline comparison, zero regressions, protected checks and governance</text>
+</svg>

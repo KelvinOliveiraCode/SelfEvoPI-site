@@ -22,7 +22,7 @@ Classificação: **verificada** quando reproduzida em fonte primária; **inferid
 | Quatro eventos normalizados, text, tool, settled e error | verificada | `core/agent/pi-rpc.mjs` linhas 129, 136, 148, 158 e 174 |
 | Sondas por kind com initialize, tools/list e flags do contrato | verificada | `docs/fase2/forge.md` §probe e `core/forge/probe.mjs` linha 55 |
 | Memória em session, project e skills com poda por evidência | verificada | `docs/fase2/memoria.md` §7 e §95 |
-| Gate estático de 13 regras, Permission Model e contenção de árvore | verificada | `docs/fase2/sandbox.md` §53, §78 e §117 |
+| Gate estático antes da execução, Permission Model e contenção de árvore | verificada | `docs/fase2/sandbox.md` §53, §78 e §117. A contagem de regras diverge entre fontes e foi retirada da página. |
 | Rollback verificado e last-known-good só com verify verde | verificada | `docs/fase2/governanca.md` §28 e §85 |
 | Grafo com checkpoint, pausa e retomada atrelados a git | verificada | `docs/fase3/grafo.md` §14, §18 e §20 |
 | Hooks de ciclo de vida: seis eventos, sem shell, timeout e redação | verificada | `docs/estado.md` §2, 22 Nov 2026, `core/agent/hooks.test.mjs` |
@@ -61,7 +61,12 @@ Classificação: **verificada** quando reproduzida em fonte primária; **inferid
 | Conectores ganham força e poeira ganha densidade com a rolagem | verificada | variável `--evo` aplicada ao CSS e ao canvas |
 | A marca DNA original gira na recepção e no carregamento | verificada | animação `logo-spin` aplicada aos dois `<img>` em `styles.css` |
 | Entrada se assemelha ao portfólio do autor | inferida | estrutura observada em kelvinoliveiracode.github.io/portfolio |
-| Quatro diagramas SVG novos (fluxo, sessão, promoção, orçamento) | verificada | `assets/diagram-*.svg`, referenciados em `index.html` |
+| Quatro diagramas SVG originais (fluxo, sessão, promoção, orçamento) | verificada | `assets/diagram-*.svg`, referenciados em `index.html` |
+| Sete diagramas SVG adicionais (fronteira, contrato, sandbox, memória, juiz, princípios, terminal) | verificada | `assets/diagram-ownership.svg`, `diagram-contract.svg`, `diagram-sandbox-layers.svg`, `diagram-memory-lifecycle.svg`, `diagram-judge.svg`, `diagram-principles.svg`, `diagram-terminal.svg` |
+| Seções principles, judge, conversation, continuity, scope e faq | verificada | `index.html`, `data-source` em cada seção |
+| Rodapé da CLI preso na primeira linha abaixo do prompt | verificada | `apps/cli.mjs` `drawInput`, teste `REPL: o rodapé fica sempre abaixo do prompt` em `apps/cli.test.mjs` |
+| Oito regras de projeto listadas na seção principles | verificada | `PROJECT.md` §princípios e `README.md` |
+| 29 tarefas de eval e 29 checkers | verificada | contagem de arquivos em `evals/tasks/` e `evals/checks/`, `docs/produto.md` §55 |
 | Scroll spy marca a seção visível com `aria-current="page"` | verificada | `script.js`, IntersectionObserver sobre as seções |
 | Botão voltar-ao-topo aparece após 600 px de rolagem | verificada | `script.js`, `.to-top` em `styles.css` |
 | Tema claro/escuro alterna `data-theme` e persiste em `localStorage` | verificada | `script.js`, seletor `:root[data-theme="light"]` em `styles.css` |

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" width="900" height="520" role="img" aria-labelledby="principlesTitle principlesDesc" class="dg">
+  <title id="principlesTitle" data-en="The rules behind the design" data-pt="As regras por trás do projeto">The rules behind the design</title>
+  <desc id="principlesDesc" data-en="Eight design rules surround the harness: no engine fork, thin coupling, zero dependencies, native Windows, one source of truth, an external judge, verification before claims, and external content treated as data." data-pt="Oito regras cercam o harness: sem fork do motor, acoplamento fino, zero dependências, Windows nativo, uma fonte de verdade, juiz externo, verificação antes de afirmações e conteúdo externo tratado como dado.">Eight design rules surround the harness: no engine fork, thin coupling, zero dependencies, native Windows, one source of truth, an external judge, verification before claims, and external content treated as data.</desc>
+  <style>
+    .dg{--bg:#000;--fg:#fff;--muted:#787878;--font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+    .dg .bg{fill:var(--bg)}
+    .dg .ln{fill:none;stroke:var(--fg);stroke-opacity:.32;stroke-width:1}
+    .dg .box{fill:var(--bg);stroke:var(--fg);stroke-width:1}
+    .dg .core{fill:var(--fg)}
+    .dg text{fill:var(--fg);font-family:var(--font);font-size:14px;font-weight:500}
+    .dg .sub{fill:var(--muted);font-size:12px;font-weight:400}
+  </style>
+  <rect class="bg" width="900" height="520"/>
+  <g class="ln">
+    <line x1="450" y1="260" x2="450" y2="96"/>
+    <line x1="450" y1="260" x2="676" y2="132"/>
+    <line x1="450" y1="260" x2="760" y2="260"/>
+    <line x1="450" y1="260" x2="676" y2="388"/>
+    <line x1="450" y1="260" x2="450" y2="424"/>
+    <line x1="450" y1="260" x2="224" y2="388"/>
+    <line x1="450" y1="260" x2="140" y2="260"/>
+    <line x1="450" y1="260" x2="224" y2="132"/>
+  </g>
+  <circle class="core" cx="450" cy="260" r="12"/>
+  <rect class="box" x="380" y="46" width="140" height="42" rx="2"/>
+  <rect class="box" x="640" y="104" width="160" height="42" rx="2"/>
+  <rect class="box" x="700" y="239" width="180" height="42" rx="2"/>
+  <rect class="box" x="620" y="376" width="180" height="42" rx="2"/>
+  <rect class="box" x="370" y="430" width="160" height="42" rx="2"/>
+  <rect class="box" x="120" y="376" width="180" height="42" rx="2"/>
+  <rect class="box" x="40" y="239" width="180" height="42" rx="2"/>
+  <rect class="box" x="110" y="104" width="180" height="42" rx="2"/>
+  <text class="sub" x="450" y="296" text-anchor="middle">SelfEvoPI</text>
+  <text x="450" y="72" text-anchor="middle" data-en="no engine fork" data-pt="sem fork do motor">no engine fork</text>
+  <text x="720" y="130" text-anchor="middle" data-en="thin coupling" data-pt="acoplamento fino">thin coupling</text>
+  <text x="790" y="266" text-anchor="middle" data-en="zero dependencies" data-pt="zero dependências">zero dependencies</text>
+  <text x="710" y="402" text-anchor="middle" data-en="native Windows" data-pt="Windows nativo">native Windows</text>
+  <text x="450" y="457" text-anchor="middle" data-en="one source of truth" data-pt="uma fonte de verdade">one source of truth</text>
+  <text x="210" y="402" text-anchor="middle" data-en="external judge" data-pt="juiz externo">external judge</text>
+  <text x="130" y="266" text-anchor="middle" data-en="verify before claiming" data-pt="verificar antes de afirmar">verify before claiming</text>
+  <text x="200" y="130" text-anchor="middle" data-en="external content is data" data-pt="conteúdo externo é dado">external content is data</text>
+</svg>

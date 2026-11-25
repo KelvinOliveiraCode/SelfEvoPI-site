@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 340" width="900" height="340" role="img" aria-labelledby="contractTitle contractDesc" class="dg">
+  <title id="contractTitle" data-en="The contract before the code" data-pt="O contrato antes do código">The contract before the code</title>
+  <desc id="contractDesc" data-en="A short contract states inputs, outputs, bans and test cases. Generation reads it, the probe checks the artifact against it, and the gate compares the result with the baseline." data-pt="Um contrato curto declara entradas, saídas, proibições e casos de teste. A geração o lê, a sonda verifica o artefato contra ele e o gate compara o resultado com a baseline.">A short contract states inputs, outputs, bans and test cases. Generation reads it, the probe checks the artifact against it, and the gate compares the result with the baseline.</desc>
+  <style>
+    .dg{--bg:#000;--fg:#fff;--muted:#787878;--font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+    .dg .bg{fill:var(--bg)}
+    .dg .ln{fill:none;stroke:var(--fg);stroke-opacity:.35;stroke-width:1}
+    .dg .box{fill:var(--bg);stroke:var(--fg);stroke-width:1}
+    .dg .filled{fill:var(--fg)}
+    .dg text{fill:var(--fg);font-family:var(--font);font-size:15px;font-weight:500}
+    .dg .sub{fill:var(--muted);font-size:13px;font-weight:400}
+  </style>
+  <rect class="bg" width="900" height="340"/>
+  <g class="ln">
+    <line x1="130" y1="76" x2="450" y2="248"/>
+    <line x1="340" y1="76" x2="450" y2="248"/>
+    <line x1="550" y1="76" x2="450" y2="248"/>
+    <line x1="760" y1="76" x2="450" y2="248"/>
+    <line x1="450" y1="288" x2="450" y2="316"/>
+  </g>
+  <rect class="box" x="50" y="28" width="160" height="48" rx="2"/>
+  <rect class="box" x="260" y="28" width="160" height="48" rx="2"/>
+  <rect class="box" x="470" y="28" width="160" height="48" rx="2"/>
+  <rect class="box" x="680" y="28" width="160" height="48" rx="2"/>
+  <circle class="filled" cx="450" cy="268" r="20"/>
+  <text x="130" y="58" text-anchor="middle" data-en="inputs" data-pt="entradas">inputs</text>
+  <text x="340" y="58" text-anchor="middle" data-en="outputs" data-pt="saídas">outputs</text>
+  <text x="550" y="58" text-anchor="middle" data-en="bans" data-pt="proibições">bans</text>
+  <text x="760" y="58" text-anchor="middle" data-en="tests" data-pt="testes">tests</text>
+  <text x="450" y="244" text-anchor="middle" data-en="contract" data-pt="contrato">contract</text>
+  <text class="sub" x="450" y="330" text-anchor="middle" data-en="generate, probe, then compare with baseline" data-pt="gerar, sondar e depois comparar com a baseline">generate, probe, then compare with baseline</text>
+</svg>

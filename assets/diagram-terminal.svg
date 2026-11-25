@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" width="900" height="360" role="img" aria-labelledby="termTitle termDesc" class="dg">
+  <title id="termTitle" data-en="Anatomy of one turn" data-pt="Anatomia de um turno">Anatomy of one turn</title>
+  <desc id="termDesc" data-en="The answer and one-line tool activity sit above the input. The status line and the shortcut hint stay directly below the input line, even when a palette or panel is open." data-pt="A resposta e a atividade de ferramenta em uma linha ficam acima da entrada. A linha de estado e a dica de atalhos ficam logo abaixo da linha de entrada, mesmo com paleta ou painel aberto.">The answer and one-line tool activity sit above the input. The status line and the shortcut hint stay directly below the input line, even when a palette or panel is open.</desc>
+  <style>
+    .dg{--bg:#000;--fg:#fff;--muted:#787878;--font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+    .dg .bg{fill:var(--bg)}
+    .dg .frame{fill:var(--bg);stroke:var(--fg);stroke-opacity:.3;stroke-width:1}
+    .dg .rule{fill:none;stroke:var(--fg);stroke-opacity:.18;stroke-width:1}
+    .dg text{fill:var(--fg);font-family:var(--font);font-size:14px;font-weight:500}
+    .dg .sub{fill:var(--muted);font-size:12px;font-weight:400}
+    .dg .mark{fill:var(--fg)}
+  </style>
+  <rect class="bg" width="900" height="360"/>
+  <rect class="frame" x="40" y="28" width="820" height="276" rx="8"/>
+  <line class="rule" x1="40" y1="68" x2="860" y2="68"/>
+  <text class="sub" x="64" y="53" data-en="conversation" data-pt="conversa">conversation</text>
+  <text class="sub" x="70" y="100" data-en="streamed answer, wrapped at 72 columns" data-pt="resposta em streaming, quebrada em 72 colunas">streamed answer, wrapped at 72 columns</text>
+  <text class="sub" x="70" y="126" data-en="tool line, target on one row" data-pt="linha de ferramenta, alvo em uma linha">tool line, target on one row</text>
+  <line class="rule" x1="40" y1="218" x2="860" y2="218"/>
+  <text class="mark" x="70" y="248">›</text>
+  <text x="94" y="248" data-en="type here" data-pt="escreva aqui">type here</text>
+  <text class="sub" x="70" y="274" data-en="build full access, model, context, branch" data-pt="build, acesso total, modelo, contexto, branch">build full access, model, context, branch</text>
+  <text class="sub" x="70" y="296" data-en="enter send, slash commands, ctrl+o panel, ctrl+k sessions, q quit" data-pt="enter enviar, barra para comandos, ctrl+o painel, ctrl+k sessões, q sair">enter send, slash commands, ctrl+o panel, ctrl+k sessions, q quit</text>
+  <text class="sub" x="450" y="338" text-anchor="middle" data-en="the footer never moves below the overlays" data-pt="o rodapé nunca desce para baixo dos overlays">the footer never moves below the overlays</text>
+</svg>

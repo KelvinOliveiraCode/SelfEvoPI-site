@@ -69,12 +69,14 @@
     </button>
     <nav id="navLinks" class="nav-links" aria-label="Sections" data-en-aria="Seções" data-pt-aria="Seções">
       <a href="#mechanism" data-en="Mechanism" data-pt="Mecanismo">Mechanism</a>
+      <a href="#principles" data-en="Rules" data-pt="Regras">Rules</a>
       <a href="#architecture" data-en="Architecture" data-pt="Arquitetura">Architecture</a>
       <a href="#comparison" data-en="Comparison" data-pt="Comparação">Comparison</a>
       <a href="#evidence" data-en="Evidence" data-pt="Evidência">Evidence</a>
       <a href="#limits" data-en="Limits" data-pt="Limites">Limits</a>
       <a href="#commands" data-en="Commands" data-pt="Comandos">Commands</a>
       <a href="#teams" data-en="Teams" data-pt="Equipes">Teams</a>
+      <a href="#faq" data-en="FAQ" data-pt="FAQ">FAQ</a>
     </nav>
     <button type="button" class="lang-button nav-download" id="navDownloadButton" data-download-open data-en-aria="Download the CLI" data-pt-aria="Baixar a CLI" aria-label="Download the CLI">
       <span class="nav-download-label" data-en="Download" data-pt="Baixar">Download</span>
@@ -130,9 +132,31 @@
             </ul>
           </div>
 <div class="diagram-wrap"><img src="assets/diagram-context-budget.svg" alt="Context budget: 499 tokens SelfEvoPI overhead + 1001 free" width="900" height="220" loading="lazy"></div>
+                <p data-en="The model supplies answers. The harness decides what reaches the model, how long a turn runs, what happens on error and whether a change is kept. That boundary is the product." data-pt="O modelo fornece respostas. O harness decide o que chega ao modelo, quanto tempo dura um turno, o que acontece no erro e se uma mudança é mantida. Essa fronteira é o produto.">The model supplies answers. The harness decides what reaches the model, how long a turn runs, what happens on error and whether a change is kept. That boundary is the product.</p>
+                <div class="diagram-wrap"><img src="assets/diagram-ownership.svg" alt="Engine supplies the model and tools; the harness decides context, turn length, errors and promotion" width="900" height="320" loading="lazy"></div>
                 <p><a href="https://huggingface.co/spaces/joelniklaus/harness-leaderboard" data-en="Open the Harness Leaderboard" data-pt="Abrir o Harness Leaderboard">Open the Harness Leaderboard</a></p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="principles" aria-labelledby="principlesTitle" data-source="PROJECT.md and README.md">
+    <div class="wrap">
+      <h2 id="principlesTitle" data-en="Rules that shape the harness" data-pt="Regras que moldam o harness">Rules that shape the harness</h2>
+      <p class="section-intro" data-en="Eight constraints decide what gets built and what stays out. They apply to the agent that edits the harness as much as to the harness itself." data-pt="Oito restrições decidem o que é construído e o que fica de fora. Elas valem para o agente que edita o harness tanto quanto para o próprio harness.">Eight constraints decide what gets built and what stays out. They apply to the agent that edits the harness as much as to the harness itself.</p>
+      <div class="diagram-wrap"><img src="assets/diagram-principles.svg" alt="Eight design rules around SelfEvoPI: no fork, thin coupling, zero dependencies, native Windows, one source of truth, external judge, verification before claims, external content as data" width="900" height="520" loading="lazy"></div>
+      <h3 class="subhead" data-en="Each rule in one line" data-pt="Cada regra em uma linha">Each rule in one line</h3>
+      <ul class="guarantee-map">
+        <li data-en="The engine is spoken to over RPC and never forked." data-pt="O motor é chamado por RPC e nunca é bifurcado.">The engine is spoken to over RPC and never forked.</li>
+        <li data-en="Configuration first, then skill, command, extension and server." data-pt="Configuração primeiro, depois skill, comando, extensão e servidor.">Configuration first, then skill, command, extension and server.</li>
+        <li data-en="Node built ins only, with no runtime dependencies." data-pt="Só módulos internos do Node, sem dependências de runtime.">Node built ins only, with no runtime dependencies.</li>
+        <li data-en="Windows native, without Docker, WSL or a virtual machine." data-pt="Windows nativo, sem Docker, WSL ou máquina virtual.">Windows native, without Docker, WSL or a virtual machine.</li>
+        <li data-en="Commands, language and models each have one home." data-pt="Comandos, idioma e modelos têm cada um uma casa só.">Commands, language and models each have one home.</li>
+        <li data-en="A checker outside the author judges the result." data-pt="Um checker fora do autor julga o resultado.">A checker outside the author judges the result.</li>
+        <li data-en="A number without a command and a date is a weak claim." data-pt="Um número sem comando e data é uma afirmação fraca.">A number without a command and a date is a weak claim.</li>
+        <li data-en="Web, MCP and tool output are data, never instructions." data-pt="Web, MCP e saída de ferramenta são dados, nunca instruções.">Web, MCP and tool output are data, never instructions.</li>
+      </ul>
+      <p class="probe-note" data-en="The order of artifacts is a cost order. A config change is cheaper than a new server, so it is tried first." data-pt="A ordem dos artefatos é uma ordem de custo. Uma mudança de configuração é mais barata que um servidor novo, então vem primeiro.">The order of artifacts is a cost order. A config change is cheaper than a new server, so it is tried first.</p>
     </div>
   </section>
 
@@ -166,6 +190,10 @@
         <div class="tier"><span class="tier-label" data-en="extension" data-pt="extensão">extension</span></div>
         <div class="tier"><span class="tier-label" data-en="MCP server" data-pt="servidor MCP">MCP server</span></div>
       </div>
+      <h3 class="subhead" data-en="The contract before the code" data-pt="O contrato antes do código">The contract before the code</h3>
+      <p data-en="A gap becomes a short contract with four fields: inputs, outputs, bans and test cases. Generation reads it. The probe checks the artifact against it. The gate compares the result with the baseline." data-pt="Uma lacuna vira um contrato curto com quatro campos: entradas, saídas, proibições e casos de teste. A geração o lê. A sonda verifica o artefato contra ele. O gate compara o resultado com a baseline.">A gap becomes a short contract with four fields: inputs, outputs, bans and test cases. Generation reads it. The probe checks the artifact against it. The gate compares the result with the baseline.</p>
+      <div class="diagram-wrap"><img src="assets/diagram-contract.svg" alt="Contract with inputs, outputs, bans and tests feeding generation and verification" width="900" height="340" loading="lazy"></div>
+      <p class="probe-note" data-en="A smoke test that always passes is not evidence. Each artifact kind has its own probe: JSON keys for config, a described capability for a skill, contract flags for a CLI, an import for an extension and JSON-RPC over stdio for a server." data-pt="Um smoke test que sempre passa não é evidência. Cada tipo de artefato tem a sua sonda: chaves JSON para config, uma capacidade descrita para skill, flags do contrato para CLI, um import para extensão e JSON-RPC sobre stdio para servidor.">A smoke test that always passes is not evidence. Each artifact kind has its own probe: JSON keys for config, a described capability for a skill, contract flags for a CLI, an import for an extension and JSON-RPC over stdio for a server.</p>
     </div>
   </section>
 
@@ -199,8 +227,8 @@
           <h4 data-en="One normalized event stream" data-pt="Um fluxo de eventos normalizado">One normalized event stream</h4>
           <div class="flow-chain" role="img" aria-label="Engine to RPC client to CLI" data-en-aria="Engine to RPC client to CLI" data-pt-aria="Motor para cliente RPC para CLI">
             <span data-en="engine" data-pt="motor">engine</span><span class="chain-node" aria-hidden="true"></span><span data-en="RPC client" data-pt="cliente RPC">RPC client</span><span class="chain-node" aria-hidden="true"></span><span data-en="CLI" data-pt="CLI">CLI</span>
-          <div class="diagram-wrap"><img src="assets/diagram-flow.svg" alt="Normalized event flow: engine → RPC client → CLI → text, tool, settled, error" width="900" height="340" loading="lazy"></div>
-        </div>
+          </div>
+          <div class="diagram-wrap"><img src="assets/diagram-flow.svg" alt="Normalized event flow: engine to RPC client to CLI to text, tool, settled, error" width="900" height="340" loading="lazy"></div>
           <ul class="event-list">
             <li><strong>text</strong><span data-en="streamed answer" data-pt="resposta em streaming">streamed answer</span></li>
             <li><strong>tool</strong><span data-en="start and end with target and result" data-pt="início e fim com alvo e resultado">start and end with target and result</span></li>
@@ -231,6 +259,62 @@
           <li data-en="Graph checkpoints bind each node to a git commit" data-pt="Checkpoints do grafo ligam cada nó a um commit git">Graph checkpoints bind each node to a git commit</li>
         </ul>
       </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="conversation" aria-labelledby="conversationTitle" data-source="docs/design/superficies.md and README.md">
+    <div class="wrap">
+      <h2 id="conversationTitle" data-en="Anatomy of one turn" data-pt="Anatomia de um turno">Anatomy of one turn</h2>
+      <p class="section-intro" data-en="The terminal is the only surface. The input line stays at the bottom of the visible frame, and the status and shortcut lines sit directly under it even when a palette or panel opens." data-pt="O terminal é a única superfície. A linha de entrada fica na parte de baixo do quadro visível, e as linhas de estado e de atalhos ficam logo abaixo dela mesmo com paleta ou painel aberto.">The terminal is the only surface. The input line stays at the bottom of the visible frame, and the status and shortcut lines sit directly under it even when a palette or panel opens.</p>
+      <div class="diagram-wrap"><img src="assets/diagram-terminal.svg" alt="Terminal frame with the answer and tool line above the input and the footer directly below the input" width="900" height="360" loading="lazy"></div>
+      <div class="engineering">
+        <div class="engineering-block">
+          <h4 data-en="Above the input" data-pt="Acima da entrada">Above the input</h4>
+          <ul class="probe-list">
+            <li><span data-en="answer" data-pt="resposta">answer</span><span data-en="Streamed text in a labelled block, wrapped at the terminal width." data-pt="Texto em streaming em bloco rotulado, quebrado na largura do terminal.">Streamed text in a labelled block, wrapped at the terminal width.</span></li>
+            <li><span data-en="tools" data-pt="ferramentas">tools</span><span data-en="One short line per call, with the target on that same line." data-pt="Uma linha curta por chamada, com o alvo nessa mesma linha.">One short line per call, with the target on that same line.</span></li>
+            <li><span data-en="reasoning" data-pt="raciocínio">reasoning</span><span data-en="A collapsible block, toggled with Alt+T." data-pt="Um bloco recolhível, alternado com Alt+T.">A collapsible block, toggled with Alt+T.</span></li>
+          </ul>
+        </div>
+        <div class="engineering-block">
+          <h4 data-en="Below the input" data-pt="Abaixo da entrada">Below the input</h4>
+          <ul class="probe-list">
+            <li><span data-en="status" data-pt="estado">status</span><span data-en="Mode, permission, model, context, time, branch and session." data-pt="Modo, permissão, modelo, contexto, tempo, branch e sessão.">Mode, permission, model, context, time, branch and session.</span></li>
+            <li><span data-en="hint" data-pt="dica">hint</span><span data-en="The shortcut line. It keeps its place when overlays open." data-pt="A linha de atalhos. Ela mantém o lugar quando os overlays abrem.">The shortcut line. It keeps its place when overlays open.</span></li>
+            <li><span data-en="queue" data-pt="fila">queue</span><span data-en="Typing during a turn queues the message; clicking a queued line sends it as steer." data-pt="Digitar durante o turno enfileira a mensagem; clicar na linha enfileirada envia como steer.">Typing during a turn queues the message; clicking a queued line sends it as steer.</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="probe-note" data-en="In pipe mode the same frame drops carriage returns and cursor erases. Twelve tasks were checked for that. No line in a headless render exceeds 72 columns." data-pt="No modo pipe o mesmo quadro dispensa retornos de carro e apagamento de cursor. Doze tarefas foram verificadas quanto a isso. Nenhuma linha em render headless passa de 72 colunas.">In pipe mode the same frame drops carriage returns and cursor erases. Twelve tasks were checked for that. No line in a headless render exceeds 72 columns.</p>
+    </div>
+  </section>
+
+  <section class="section reveal" id="judge" aria-labelledby="judgeTitle" data-source="docs/produto.md and README.md">
+    <div class="wrap">
+      <h2 id="judgeTitle" data-en="The judge sits outside the author" data-pt="O juiz fica fora do autor">The judge sits outside the author</h2>
+      <p class="section-intro" data-en="The harness that proposes a change is not the harness that accepts it. A deterministic checker runs the candidate in a temporary workspace, prints JSON and exits zero or one." data-pt="O harness que propõe uma mudança não é o que a aceita. Um checker determinístico roda o candidato em workspace temporário, imprime JSON e sai zero ou um.">The harness that proposes a change is not the harness that accepts it. A deterministic checker runs the candidate in a temporary workspace, prints JSON and exits zero or one.</p>
+      <div class="diagram-wrap"><img src="assets/diagram-judge.svg" alt="Candidate runs in a temporary workspace, a checker emits JSON and the gate compares with a baseline before promotion" width="900" height="340" loading="lazy"></div>
+      <div class="engineering">
+        <div class="engineering-block">
+          <h4 data-en="What the gate asks" data-pt="O que o gate pergunta">What the gate asks</h4>
+          <ul class="probe-list">
+            <li><span data-en="task" data-pt="tarefa">task</span><span data-en="Was the target task actually solved?" data-pt="A tarefa-alvo foi de fato resolvida?">Was the target task actually solved?</span></li>
+            <li><span data-en="regression" data-pt="regressão">regression</span><span data-en="Did any other task get worse against the baseline?" data-pt="Alguma outra tarefa piorou em relação à baseline?">Did any other task get worse against the baseline?</span></li>
+            <li><span data-en="budget" data-pt="orçamento">budget</span><span data-en="Is the token delta inside the accepted range?" data-pt="O delta de tokens está na faixa aceita?">Is the token delta inside the accepted range?</span></li>
+            <li><span data-en="ledger" data-pt="ledger">ledger</span><span data-en="Is the decision recorded in an append-only log?" data-pt="A decisão foi registrada em log append-only?">Is the decision recorded in an append-only log?</span></li>
+          </ul>
+        </div>
+        <div class="engineering-block">
+          <h4 data-en="What cannot be edited to pass" data-pt="O que não pode ser editado para passar">What cannot be edited to pass</h4>
+          <ul class="probe-list">
+            <li><span data-en="evals/" data-pt="evals/">evals/</span><span data-en="Tasks, checkers and baseline belong to the judge." data-pt="Tarefas, checkers e baseline pertencem ao juiz.">Tasks, checkers and baseline belong to the judge.</span></li>
+            <li><span data-en="core/governance/" data-pt="core/governance/">core/governance/</span><span data-en="Modes, approval and rollback are protected." data-pt="Modos, aprovação e rollback são protegidos.">Modes, approval and rollback are protected.</span></li>
+            <li><span data-en="verify-urls.mjs" data-pt="verify-urls.mjs">verify-urls.mjs</span><span data-en="The source gate is not weakened to make a build green." data-pt="O gate de fontes não é enfraquecido para deixar o build verde.">The source gate is not weakened to make a build green.</span></li>
+            <li><span data-en="recovery" data-pt="recuperação">recovery</span><span data-en="A failed rollback never updates the last known good state." data-pt="Um rollback falho nunca atualiza o último estado bom.">A failed rollback never updates the last known good state.</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="probe-note" data-en="There are 29 eval tasks and 29 matching checkers. A green run is a measurement on a given day, not a promise about future work." data-pt="Há 29 tarefas de eval e 29 checkers correspondentes. Uma execução verde é uma medição de determinado dia, não uma promessa sobre trabalho futuro.">There are 29 eval tasks and 29 matching checkers. A green run is a measurement on a given day, not a promise about future work.</p>
     </div>
   </section>
 
@@ -363,7 +447,7 @@
         <div class="limit-column">
           <h3 data-en="What exists" data-pt="O que existe">What exists</h3>
           <ul class="limit-nodes">
-            <li><span class="limit-dot" aria-hidden="true"></span><span data-en="Static gate, 13 rules, Permission Model, process containment" data-pt="Gate estático, 13 regras, Permission Model, contenção de processos">Static gate, 13 rules, Permission Model, process containment</span></li>
+            <li><span class="limit-dot" aria-hidden="true"></span><span data-en="Static gate before execution, Permission Model, process containment" data-pt="Gate estático antes da execução, Permission Model, contenção de processos">Static gate before execution, Permission Model, process containment</span></li>
             <li><span class="limit-dot" aria-hidden="true"></span><span data-en="evals/ and core/governance/ stay protected" data-pt="evals/ e core/governance/ permanecem protegidas">evals/ and core/governance/ stay protected</span></li>
             <li><span class="limit-dot" aria-hidden="true"></span><span data-en="Network, credentials, and outside writes pause for approval" data-pt="Rede, credenciais e escrita externa pausam para aprovação">Network, credentials, and outside writes pause for approval</span></li>
             <li><span class="limit-dot" aria-hidden="true"></span><span data-en="No secret is printed, logged, or committed" data-pt="Nenhum segredo é impresso, logado ou comitado">No secret is printed, logged, or committed</span></li>
@@ -380,6 +464,39 @@
             <li><span class="limit-dot is-open" aria-hidden="true"></span><span data-en="No /btw, custom keybindings, or title progress bar" data-pt="Sem /btw, keybindings customizáveis ou barra de progresso no título">No /btw, custom keybindings, or title progress bar</span></li>
             <li><span class="limit-dot is-open" aria-hidden="true"></span><span data-en="Cells use internal tools, no full gateway wiring" data-pt="Células usam ferramentas internas, sem ligação completa com o gateway">Cells use internal tools, no full gateway wiring</span></li>
             <li><span class="limit-dot is-open" aria-hidden="true"></span><span data-en="Real LSP server and real DAP process remain unproven" data-pt="Servidor LSP real e processo DAP real permanecem sem prova">Real LSP server and real DAP process remain unproven</span></li>
+          </ul>
+        </div>
+      </div>
+      <h3 class="subhead" data-en="The layers around generated code" data-pt="As camadas ao redor do código gerado">The layers around generated code</h3>
+      <p data-en="A static gate reads the source before it runs. The Node permission model limits what the process can reach. Process containment reaches detached children on timeout. Protected paths keep the judge out of reach. Decisions go to a local ledger with redacted excerpts." data-pt="Um gate estático lê o código antes da execução. O permission model do Node limita o que o processo alcança. A contenção de processos alcança filhos destacados no timeout. Caminhos protegidos mantêm o juiz fora de alcance. As decisões vão para um ledger local com trechos redigidos.">A static gate reads the source before it runs. The Node permission model limits what the process can reach. Process containment reaches detached children on timeout. Protected paths keep the judge out of reach. Decisions go to a local ledger with redacted excerpts.</p>
+      <div class="diagram-wrap"><img src="assets/diagram-sandbox-layers.svg" alt="Concentric containment layers around a generated artifact, with a local ledger recording decisions" width="900" height="360" loading="lazy"></div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="scope" aria-labelledby="scopeTitle" data-source="PROJECT.md and README.md">
+    <div class="wrap">
+      <h2 id="scopeTitle" data-en="What it is and what it is not" data-pt="O que é e o que não é">What it is and what it is not</h2>
+      <p class="section-intro" data-en="A precise boundary is part of the product. It says which promises the harness makes and which it refuses to make." data-pt="Uma fronteira precisa faz parte do produto. Ela diz quais promessas o harness faz e quais se recusa a fazer.">A precise boundary is part of the product. It says which promises the harness makes and which it refuses to make.</p>
+      <div class="limits-grid">
+        <div class="limit-column">
+          <h3 data-en="In the release" data-pt="No release">In the release</h3>
+          <ul class="limit-nodes">
+            <li><span class="limit-dot" aria-hidden="true"></span><span data-en="One conversation in one terminal" data-pt="Uma conversa em um terminal">One conversation in one terminal</span></li>
+            <li><span class="limit-dot" aria-hidden="true"></span><span data-en="Router, evals, memory, sandbox and governance" data-pt="Roteador, evals, memória, sandbox e governança">Router, evals, memory, sandbox and governance</span></li>
+            <li><span class="limit-dot" aria-hidden="true"></span><span data-en="An external engine reached by RPC, never forked" data-pt="Um motor externo alcançado por RPC, nunca bifurcado">An external engine reached by RPC, never forked</span></li>
+            <li><span class="limit-dot" aria-hidden="true"></span><span data-en="A provider the user configures, with no key in the repository" data-pt="Um provider configurado pelo usuário, sem chave no repositório">A provider the user configures, with no key in the repository</span></li>
+            <li><span class="limit-dot" aria-hidden="true"></span><span data-en="Twelve themes and three editable slots" data-pt="Doze temas e três slots editáveis">Twelve themes and three editable slots</span></li>
+          </ul>
+        </div>
+        <div class="limit-spine" aria-hidden="true"></div>
+        <div class="limit-column">
+          <h3 data-en="Out of scope by decision" data-pt="Fora de escopo por decisão">Out of scope by decision</h3>
+          <ul class="limit-nodes">
+            <li><span class="limit-dot is-open" aria-hidden="true"></span><span data-en="Desktop app, web panel and editor extension" data-pt="App desktop, painel web e extensão de editor">Desktop app, web panel and editor extension</span></li>
+            <li><span class="limit-dot is-open" aria-hidden="true"></span><span data-en="Fork of the engine or bundled runtime dependencies" data-pt="Fork do motor ou dependências de runtime embutidas">Fork of the engine or bundled runtime dependencies</span></li>
+            <li><span class="limit-dot is-open" aria-hidden="true"></span><span data-en="Docker, WSL or a virtual machine as a requirement" data-pt="Docker, WSL ou máquina virtual como requisito">Docker, WSL or a virtual machine as a requirement</span></li>
+            <li><span class="limit-dot is-open" aria-hidden="true"></span><span data-en="An operating system sandbox on Windows" data-pt="Um sandbox de sistema operacional no Windows">An operating system sandbox on Windows</span></li>
+            <li><span class="limit-dot is-open" aria-hidden="true"></span><span data-en="Multi-user isolation and tenant separation" data-pt="Isolamento multiusuário e separação de inquilinos">Multi-user isolation and tenant separation</span></li>
           </ul>
         </div>
       </div>
@@ -459,6 +576,35 @@ npm run cli</code></pre>
         <div class="edge-item"><strong data-en="Agent definitions" data-pt="Definições de agente">Agent definitions</strong><span data-en="Frontmatter files define modes and ordered permission rules." data-pt="Arquivos com frontmatter definem modos e regras de permissão ordenadas.">Frontmatter files define modes and ordered permission rules.</span></div>
         <div class="edge-item"><strong data-en="Refutation audit" data-pt="Auditoria de refutação">Refutation audit</strong><span data-en="A claim is tested against the running CLI before it stays in the foundation document." data-pt="Uma afirmação é testada na CLI em execução antes de ficar no documento fundacional.">A claim is tested against the running CLI before it stays in the foundation document.</span></div>
       </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="continuity" aria-labelledby="continuityTitle" data-source="README.md and docs/produto.md">
+    <div class="wrap">
+      <h2 id="continuityTitle" data-en="State that survives a restart" data-pt="Estado que sobrevive a um reinício">State that survives a restart</h2>
+      <p class="section-intro" data-en="Sessions, facts and team work are written to disk. Nothing is held only in the process, and nothing is read back without a redaction step at the entry." data-pt="Sessões, fatos e trabalho de equipe são gravados em disco. Nada fica só no processo, e nada é lido de volta sem uma etapa de redação na entrada.">Sessions, facts and team work are written to disk. Nothing is held only in the process, and nothing is read back without a redaction step at the entry.</p>
+      <div class="diagram-wrap"><img src="assets/diagram-memory-lifecycle.svg" alt="A fact is redacted, stored in session memory, promoted to project memory and then to skills, with pruning at each level" width="900" height="320" loading="lazy"></div>
+      <div class="engineering">
+        <div class="engineering-block">
+          <h4 data-en="Three levels of memory" data-pt="Três níveis de memória">Three levels of memory</h4>
+          <ul class="probe-list">
+            <li><span data-en="session" data-pt="sessão">session</span><span data-en="Holds what belongs to one conversation." data-pt="Guarda o que pertence a uma conversa.">Holds what belongs to one conversation.</span></li>
+            <li><span data-en="project" data-pt="projeto">project</span><span data-en="Keeps facts that survive across sessions." data-pt="Mantém fatos que sobrevivem entre sessões.">Keeps facts that survive across sessions.</span></li>
+            <li><span data-en="skills" data-pt="skills">skills</span><span data-en="Receives only what evidence supports." data-pt="Recebe apenas o que a evidência sustenta.">Receives only what evidence supports.</span></li>
+            <li><span data-en="recall" data-pt="recuperação">recall</span><span data-en="Lexical first, then PPMI associations, then a glossary." data-pt="Primeiro lexical, depois associações PPMI e então um glossário.">Lexical first, then PPMI associations, then a glossary.</span></li>
+          </ul>
+        </div>
+        <div class="engineering-block">
+          <h4 data-en="Teams and events" data-pt="Equipes e eventos">Teams and events</h4>
+          <ul class="probe-list">
+            <li><span data-en="team" data-pt="team">team</span><span data-en="A board, messages and a deterministic step survive a restart." data-pt="Quadro, mensagens e um passo determinístico sobrevivem ao reinício.">A board, messages and a deterministic step survive a restart.</span></li>
+            <li><span data-en="bus" data-pt="bus">bus</span><span data-en="Events are deduplicated and the cursor is saved." data-pt="Os eventos são deduplicados e o cursor é salvo.">Events are deduplicated and the cursor is saved.</span></li>
+            <li><span data-en="cells" data-pt="cells">cells</span><span data-en="A restricted runtime keeps state with call and output caps." data-pt="Um runtime restrito mantém estado com tetos de chamada e saída.">A restricted runtime keeps state with call and output caps.</span></li>
+            <li><span data-en="writes" data-pt="escritas">writes</span><span data-en="Atomic, so a crash does not leave a half board." data-pt="Atômicas, para que uma queda não deixe um quadro pela metade.">Atomic, so a crash does not leave a half board.</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="probe-note" data-en="Memory has a 400 token ceiling per turn, and it is append-only. Promotion is not automatic just because a fact was written." data-pt="A memória tem teto de 400 tokens por turno e é append-only. A promoção não é automática só porque um fato foi escrito.">Memory has a 400 token ceiling per turn, and it is append-only. Promotion is not automatic just because a fact was written.</p>
     </div>
   </section>
 
@@ -572,6 +718,21 @@ npm run cli</code></pre>
         </table>
       </div>
       <p class="command-note" data-en="Every launch opens a new session. Resume with --resume &lt;id&gt; or /resume." data-pt="Cada abertura cria uma sessão nova. Retome com --resume &lt;id&gt; ou /resume.">Every launch opens a new session. Resume with --resume &lt;id&gt; or /resume.</p>
+    </div>
+  </section>
+
+  <section class="section reveal" id="faq" aria-labelledby="faqTitle" data-source="README.md and PROJECT.md">
+    <div class="wrap">
+      <h2 id="faqTitle" data-en="Questions people ask" data-pt="Perguntas que aparecem">Questions people ask</h2>
+      <dl class="qa">
+        <div class="qa-row"><dt data-en="Do I need Docker or WSL?" data-pt="Preciso de Docker ou WSL?">Do I need Docker or WSL?</dt><dd data-en="No. The harness runs natively on Windows with Node 22.19.1 or newer." data-pt="Não. O harness roda nativamente no Windows com Node 22.19.1 ou mais novo.">No. The harness runs natively on Windows with Node 22.19.1 or newer.</dd></div>
+        <div class="qa-row"><dt data-en="Which model does it use?" data-pt="Qual modelo ele usa?">Which model does it use?</dt><dd data-en="You configure the provider. The public release ships no key and no preset account." data-pt="Você configura o provider. O release público não traz chave nem conta pré-configurada.">You configure the provider. The public release ships no key and no preset account.</dd></div>
+        <div class="qa-row"><dt data-en="Does it resume the last session on launch?" data-pt="Ele retoma a última sessão ao abrir?">Does it resume the last session on launch?</dt><dd data-en="No. Every launch opens a new session. Resume with --resume or /resume." data-pt="Não. Cada abertura cria uma sessão nova. Retome com --resume ou /resume.">No. Every launch opens a new session. Resume with --resume or /resume.</dd></div>
+        <div class="qa-row"><dt data-en="Does the loop install what it writes?" data-pt="O loop instala o que escreve?">Does the loop install what it writes?</dt><dd data-en="No. It writes the artifact into the workspace. The user registers a server or skill locally." data-pt="Não. Ele escreve o artefato no workspace. O usuário registra o servidor ou a skill localmente.">No. It writes the artifact into the workspace. The user registers a server or skill locally.</dd></div>
+        <div class="qa-row"><dt data-en="Is the sandbox an operating system boundary?" data-pt="O sandbox é uma fronteira de sistema operacional?">Is the sandbox an operating system boundary?</dt><dd data-en="No. It is a static gate, a Node permission model, process containment and a protected set of paths. Those are different claims." data-pt="Não. São um gate estático, o permission model do Node, contenção de processos e um conjunto de caminhos protegidos. São afirmações diferentes.">No. It is a static gate, a Node permission model, process containment and a protected set of paths. Those are different claims.</dd></div>
+        <div class="qa-row"><dt data-en="Why does English come first?" data-pt="Por que o inglês vem primeiro?">Why does English come first?</dt><dd data-en="It is a recorded decision for the public release. /language pt switches the interface." data-pt="É uma decisão registrada para o release público. /language pt troca o idioma da interface.">It is a recorded decision for the public release. /language pt switches the interface.</dd></div>
+        <div class="qa-row"><dt data-en="Can I verify a claim on this page?" data-pt="Posso verificar uma afirmação desta página?">Can I verify a claim on this page?</dt><dd data-en="Yes. The Evidence table gives a value, a command and a date. claims.md records which statements were measured and which were inferred." data-pt="Sim. A tabela Evidência traz valor, comando e data. claims.md registra quais afirmações foram medidas e quais foram inferidas.">Yes. The Evidence table gives a value, a command and a date. claims.md records which statements were measured and which were inferred.</dd></div>
+      </dl>
     </div>
   </section>
 </main>
