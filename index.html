@@ -514,7 +514,7 @@ npm run cli</code></pre>
       <h3 class="subhead" data-en="Requirements" data-pt="Requisitos">Requirements</h3>
       <div class="edge-list">
         <div class="edge-item"><strong data-en="Windows, native" data-pt="Windows, nativo">Windows, native</strong><span data-en="No Docker, WSL or virtual machine." data-pt="Sem Docker, WSL ou máquina virtual.">No Docker, WSL or virtual machine.</span></div>
-        <div class="edge-item"><strong data-en="Node 22.19.1 or newer" data-pt="Node 22.19.1 ou mais novo">Node 22.19.1 or newer</strong><span data-en="The version floor the harness is measured against." data-pt="A versão mínima contra a qual o harness é medido.">The version floor the harness is measured against.</span></div>
+        <div class="edge-item"><strong data-en="Node 22.19.1 or newer" data-pt="Node 22.19.1 ou mais novo">Node 22.19.1 or newer</strong><span data-en="Needed when installing from the repository. The release zip bundles it." data-pt="Necessário ao instalar pelo repositório. O zip do release já o inclui.">Needed when installing from the repository. The release zip bundles it.</span></div>
         <div class="edge-item"><strong data-en="Git 2.55 or newer" data-pt="Git 2.55 ou mais novo">Git 2.55 or newer</strong><span data-en="With core.longpaths set to true." data-pt="Com core.longpaths definido como true.">With core.longpaths set to true.</span></div>
         <div class="edge-item"><strong data-en="The engine CLI" data-pt="A CLI do motor">The engine CLI</strong><span data-en="Installed separately. SelfEvoPI speaks to it over RPC and does not fork it." data-pt="Instalada à parte. O SelfEvoPI fala com ela por RPC e não a bifurca.">Installed separately. SelfEvoPI speaks to it over RPC and does not fork it.</span></div>
       </div>
@@ -525,7 +525,7 @@ npm run cli</code></pre>
   <section class="section reveal" id="download" aria-labelledby="downloadTitle" data-source="release v2.0.0 and download/README.md">
     <div class="wrap">
       <h2 id="downloadTitle" data-en="Download and first run" data-pt="Download e primeiro uso">Download and first run</h2>
-      <p class="section-intro" data-en="The release zip carries the full CLI and SelfEvoPI.exe at its root. Extract it, open the executable, then give it one endpoint and one key." data-pt="O zip do release traz a CLI completa e o SelfEvoPI.exe na raiz. Extraia, abra o executável e dê a ele um endpoint e uma chave.">The release zip carries the full CLI and SelfEvoPI.exe at its root. Extract it, open the executable, then give it one endpoint and one key.</p>
+      <p class="section-intro" data-en="The release zip carries the full CLI, SelfEvoPI.exe and Node at its root. Extract it, open the executable, then give it one endpoint and one key. Nothing else needs installing." data-pt="O zip do release traz a CLI completa, o SelfEvoPI.exe e o Node na raiz. Extraia, abra o executável e dê a ele um endpoint e uma chave. Nada mais precisa ser instalado.">The release zip carries the full CLI, SelfEvoPI.exe and Node at its root. Extract it, open the executable, then give it one endpoint and one key. Nothing else needs installing.</p>
       <p><a class="primary" href="https://github.com/KelvinOliveiraCode/SelfEvoPI/releases/download/v2.0.0/SelfEvoPI-2.0.0.zip">Download SelfEvoPI 2.0.0</a></p>
       <pre class="terminal"><code>extraia o zip
 SelfEvoPI.exe --version
@@ -535,7 +535,7 @@ SelfEvoPI.exe --version
         <div class="engineering-block">
           <h4 data-en="What the executable does" data-pt="O que o executável faz">What the executable does</h4>
           <ul class="probe-list">
-            <li><span data-en="launcher" data-pt="lançador">launcher</span><span data-en="Finds node.exe on PATH and starts apps/cli.mjs." data-pt="Acha node.exe no PATH e inicia apps/cli.mjs.">Finds node.exe on PATH and starts apps/cli.mjs.</span></li>
+            <li><span data-en="launcher" data-pt="lançador">launcher</span><span data-en="Uses the bundled node.exe, or the one on PATH if absent." data-pt="Usa o node.exe incluído ou o do PATH, se não houver.">Uses the bundled node.exe, or the one on PATH if absent.</span></li>
             <li><span data-en="workspace" data-pt="workspace">workspace</span><span data-en="Enters the application folder so the conversation keeps its place." data-pt="Entra na pasta da aplicação para a conversa manter o lugar.">Enters the application folder so the conversation keeps its place.</span></li>
             <li><span data-en="secrets" data-pt="segredos">secrets</span><span data-en="No key, no menu and no network call of its own." data-pt="Sem chave, sem menu e sem chamada de rede própria.">No key, no menu and no network call of its own.</span></li>
           </ul>

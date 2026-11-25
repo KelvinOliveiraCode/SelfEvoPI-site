@@ -132,6 +132,8 @@ A seção `conversation` registra o comportamento da CLI que mantém estado e di
 
 O botão Baixar da navegação e da recepção deixou de abrir um diálogo de aviso e passou a linkar direto o zip do release v2.0.0. O diálogo antigo e seu código em `script.js` foram removidos. A seção `download` explica o executável, mostra os quatro comandos de começo e descreve o `/providers quick`: um endpoint e uma chave entram, todos os modelos do gateway são puxados e gravados no perfil do usuário. A chave não aparece na saída.
 
+O zip passou a incluir `node.exe` e `NODE-LICENSE.txt`. O lançador prefere o Node embutido e só cai para o PATH quando ele não existe. A página diz que nada mais precisa ser instalado, e a seção Instalação mantém o Node como requisito somente para quem instala pelo repositório.
+
 A nota da seção Instalação deixou de prometer `npm run verify` verde no release público e passou a dizer que o ledger privado fica fora do pacote.
 
 ## PWA e OG
